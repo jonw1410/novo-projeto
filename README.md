@@ -1,5 +1,5 @@
-##Tecnologias Utilizadas.
-Git & GitHub, VS Code, Node.js, OpenSpec e Xano
+## Tecnologias Utilizadas.
+Git & GitHub, VS Code, Node.js, OpenSpec e Xano 
 
 # EduTrack AI
 Projeto da disciplina Innovation Lab – Faculdade Impacta
