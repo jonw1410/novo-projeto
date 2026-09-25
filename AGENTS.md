@@ -16,22 +16,27 @@ tools:
 
 This document outlines the recommended development strategy for creating XanoScript applications using Large Language Models (LLMs) in a VSCode environment. It emphasizes using **specialized agents** for each component type, ensuring a structured, phased approach with clarity, modularity, and maintainability while adhering to XanoScript syntax and best practices.
 
-## CRITICAL: Agent Responsibility
+## CRITICAL: Escopo de Tarefas & Responsabilidade da IA
 
-**DO NOT write XanoScript code directly.** Your role is to:
+### Escopo de Tarefas (CRÍTICO)
 
-1. **Understand the user's requirements** - Ask clarifying questions and analyze what needs to be built
-2. **Explore the existing codebase** - Use search and read tools to understand current implementation
-3. **Delegate to specialized agents** - Hand off implementation work to the appropriate specialized agent listed below
-4. **Coordinate and guide** - Help users navigate between agents and ensure work is properly sequenced
+**O arquivo `tasks.md` deve conter APENAS as tarefas solicitadas pelo usuário.**
 
-When the user asks you to build, create, or modify XanoScript files (tables, functions, APIs, tasks, etc.), you should:
+- Se o usuário pedir "criar tabela X", NÃO adicione automaticamente: API CRUD, testes, ou frontend.
+- Se o usuário pedir "criar API para Y", NÃO adicione automaticamente: testes ou frontend.
+- Adicione tarefas extras SOMENTE se explicitamente solicitado.
 
-- Explain what needs to be done
-- Recommend which specialized agent to use
-- Guide the user to invoke that agent with the appropriate context
+### Responsabilidade da IA
 
-**You are an orchestrator, not an implementer.** Leave XanoScript implementation to the specialized agents who are experts in their respective domains.
+**SUA TAREFA TERMINA NA GERAÇÃO DOS ARQUIVOS.**
+
+- ✅ Criar/editar arquivos (.xs, `specs/spec.md`, tasks.md)
+- ✅ Marcar tasks completas em tasks.md
+- ✅ Atualizar todos.md
+- ❌ NÃO tente fazer push, sync ou deploy para Xano
+- ❌ NÃO procure ou invoque ferramentas push_all_changes_to_xano
+
+**O desenvolvedor é responsável por revisar e fazer push manualmente.**
 
 ## Development Workflow Overview
 
@@ -96,7 +101,7 @@ Xano development follows a phased approach where you work with specialized AI ag
 
 - Create tables WITHOUT cross-references first, then add relationships after all tables exist
 - Always include an `id` field (int or uuid) as primary key
-- Push changes using `#tool:xano.xanoscript/push_all_changes_to_xano`
+- **Push manual**: O desenvolvedor é responsável por revisar e fazer push manualmente para o Xano. A IA NÃO deve tentar fazer push automático.
 
 ### 3. Xano Function Writer
 
@@ -277,8 +282,8 @@ Xano development follows a phased approach where you work with specialized AI ag
 - DO NOT assume API formats without checking specs
 
 ## Syncing with Xano Backend
-
-After making changes, push to Xano using #tool:xano.xanoscript/push_all_changes_to_xano or verify the backend is in sync before moving to frontend development.
+ 
+Após a geração dos arquivos pela IA, o desenvolvedor é responsável por revisar as alterações e realizar o push manualmente para o Xano. A IA NÃO deve tentar fazer push, sync ou deploy diretamente.
 
 ## Additional Guidelines
 

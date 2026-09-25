@@ -25,7 +25,7 @@ query "sendgrid/validate" verb=POST {
       value = ""
     }
   
-    function.run sendgrid_dynamic_send {
+    function.run "" {
       input = {to_email: "", template_id: "", data: {}}
     } as $func1
   }

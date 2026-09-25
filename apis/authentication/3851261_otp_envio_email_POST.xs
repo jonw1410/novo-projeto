@@ -39,7 +39,7 @@ query otp_envio_email verb=POST {
     }
   
     // Envia o e-mail usando o template dinâmico
-    function.run sendgrid_dynamic_send {
+    function.run "" {
       input = {
         to_email   : $input.email
         template_id: "d-0e631a0710774ae2a3b40b74ae80433d"

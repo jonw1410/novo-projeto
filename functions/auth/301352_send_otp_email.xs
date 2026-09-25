@@ -16,7 +16,7 @@ function "auth/send_otp_email" {
     }
   
     // Chama a função básica de envio do SendGrid
-    function.run sendgrid_basic_send {
+    function.run "" {
       input = {
         to_email: $input.email
         subject : "Seu Código de Verificação (OTP)"
