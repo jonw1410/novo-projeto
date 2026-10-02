@@ -1,43 +1,29 @@
 import streamlit as st
-import streamlit.components.v1 as components
-import os
 
-# Configuração da Página para tela cheia e moderna (chamada única no início do script)
-st.set_page_config(
-    page_title="EduTrack AI - Portal Acadêmico",
-    page_icon="🎓",
-    layout="wide",
-    initial_sidebar_state="collapsed"
-)
+# Configuração da Página (Título na aba do navegador)
+st.set_page_config(page_title="EduTrack AI", page_icon="🎓")
 
-# Estilização para remover margens excessivas do Streamlit e garantir imersão total
-st.markdown("""
-<style>
-    .block-container {
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-        padding-left: 0.5rem;
-        padding-right: 0.5rem;
-        max-width: 100%;
-    }
-    header[data-testid="stHeader"] {
-        display: none;
-    }
-    footer {
-        display: none;
-    }
-</style>
-""", unsafe_allow_html=True)
+# Título Principal
+st.title("🎓 EduTrack AI")
 
-# Caminho do dashboard moderno
-html_file = os.path.join(os.path.dirname(__file__), "dashboard.html")
+# Sidebar (Menu Lateral)
+st.sidebar.header("Menu")
+menu_option = st.sidebar.radio("Navegar", ["Dashboard", "Disciplinas", "Tarefas"])
 
-if os.path.exists(html_file):
-    with open(html_file, "r", encoding="utf-8") as f:
-        html_code = f.read()
+# Conteúdo Dinâmico
+if menu_option == "Dashboard":
+    st.write("Bem-vindo ao seu assistente acadêmico!")
+    st.info("Conecte ao Xano para ver seus dados reais.")
     
-    # Renderiza o dashboard HTML moderno, responsivo e interativo
-    components.html(html_code, height=1350, scrolling=True)
-else:
-    st.title("🎓 EduTrack AI")
-    st.error("Arquivo dashboard.html não encontrado no diretório do projeto.")
+    # Exemplo de Métrica Visual
+    col1, col2 = st.columns(2)
+    col1.metric("Disciplinas Ativas", "0")
+    col2.metric("Tarefas Pendentes", "0")
+
+elif menu_option == "Disciplinas":
+    st.subheader("Minhas Disciplinas")
+    st.write("Aqui listaremos as matérias cadastradas no backend.")
+
+elif menu_option == "Tarefas":
+    st.subheader("Gerenciamento de Tarefas")
+    st.checkbox("Exemplo: Estudar Streamlit")
