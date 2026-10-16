@@ -33,4 +33,5 @@ query "subjects/{id}" verb=PATCH {
   }
 
   response = $updated_subject
+  guid = "B_znIeADBpm1iozstuRs3LIWdjs"
 }

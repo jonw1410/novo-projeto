@@ -1,6 +1,6 @@
 // Cria uma nova tarefa acadêmica vinculada ao usuário autenticado
 query "academic_tasks" verb=POST {
-  api_group = "Academic Tasks"
+  api_group = "academic_Tasks"
   auth = "usuarios"
 
   input {
@@ -37,4 +37,5 @@ query "academic_tasks" verb=POST {
   }
 
   response = $task
+  guid = "if_Uq2ODYVMZ2Lgxl9g1DvkQVJc"
 }

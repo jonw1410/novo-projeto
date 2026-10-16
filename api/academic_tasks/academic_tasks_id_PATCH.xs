@@ -1,6 +1,6 @@
 // Atualiza uma tarefa acadêmica garantindo a posse pelo usuário autenticado
 query "academic_tasks/{id}" verb=PATCH {
-  api_group = "Academic Tasks"
+  api_group = "academic_Tasks"
   auth = "usuarios"
 
   input {
@@ -37,4 +37,5 @@ query "academic_tasks/{id}" verb=PATCH {
   }
 
   response = $updated_task
+  guid = "90GbOuDqxc6dm_c7oXw9BbJYuYQ"
 }

@@ -25,4 +25,5 @@ query "subjects/{id}" verb=DELETE {
   }
 
   response = {success: true}
+  guid = "t1aOeZas26WzUaRjSoNqdhWByFA"
 }

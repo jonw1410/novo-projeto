@@ -1,6 +1,6 @@
 // Deleta uma tarefa acadêmica garantindo a posse pelo usuário autenticado
 query "academic_tasks/{id}" verb=DELETE {
-  api_group = "Academic Tasks"
+  api_group = "academic_Tasks"
   auth = "usuarios"
 
   input {
@@ -25,4 +25,5 @@ query "academic_tasks/{id}" verb=DELETE {
   }
 
   response = {success: true}
+  guid = "tE1HU3XJnqnNhEHCBUtRgO5LAoc"
 }
