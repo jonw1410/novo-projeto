@@ -1,4 +1,4 @@
-// Armazena as tarefas acadêmicas vinculadas aos usuários e matérias
+// Armazena as tarefas acadêmicas vinculadas aos usuários e disciplinas
 table academic_tasks {
   auth = false
 
@@ -9,16 +9,16 @@ table academic_tasks {
     }
 
     text title filters=trim
-    text priority?="Média" filters=trim
-    text status?="Pendente" filters=trim
+    text? description filters=trim
     timestamp? due_date?
+    text status?="Pendente" filters=trim
 
     // Referência à disciplina
     int subject_id {
       table = "subjects"
     }
 
-    // Referência ao usuário autenticado da tabela usuarios
+    // Referência ao usuário da tabela de autenticação usuarios
     int user_id {
       table = "usuarios"
     }
