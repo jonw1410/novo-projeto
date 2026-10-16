@@ -14,4 +14,5 @@ query "subjects" verb=GET {
   }
 
   response = $subjects
+  guid = "AKCn-zBu2NIqG2ebBggdVLGbbBM"
 }

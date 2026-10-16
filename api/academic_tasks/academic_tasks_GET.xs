@@ -1,6 +1,6 @@
 // Lista todas as tarefas acadêmicas do usuário autenticado
 query "academic_tasks" verb=GET {
-  api_group = "Academic Tasks"
+  api_group = "academic_Tasks"
   auth = "usuarios"
 
   input {
@@ -15,4 +15,5 @@ query "academic_tasks" verb=GET {
   }
 
   response = $tasks
+  guid = "DwX8sKUhwg7TdY_L4UonG5hZ8Xc"
 }

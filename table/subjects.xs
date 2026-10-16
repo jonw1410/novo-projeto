@@ -23,4 +23,5 @@ table subjects {
     {type: "btree", field: [{name: "user_id", op: "asc"}]}
     {type: "btree", field: [{name: "created_at", op: "desc"}]}
   ]
+  guid = "r8pbsqJDe3NYl4ru4zGy2SpI1mY"
 }

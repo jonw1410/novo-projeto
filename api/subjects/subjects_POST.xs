@@ -22,4 +22,5 @@ query "subjects" verb=POST {
   }
 
   response = $subject
+  guid = "PLET1Zyj2lnfnXGruYKFC8YJcDw"
 }
