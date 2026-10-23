@@ -1,7 +1,7 @@
 // Lista as disciplinas pertencentes exclusivamente ao usuário autenticado
-query "subjects" verb=GET {
+query subjects verb=GET {
   api_group = "Subjects"
-  auth = "usuarios"
+  auth = ""
 
   input {
   }
