@@ -1,13 +1,13 @@
 addon user {
   input {
     int user_id? {
-      table = "usuarios"
+      table = ""
     }
   }
 
   stack {
-    db.query usuarios {
-      where = $db.usuarios.id == $input.user_id
+    db.query "" {
+      where = $db.user.id == $input.user_id
       return = {type: "single"}
     }
   }

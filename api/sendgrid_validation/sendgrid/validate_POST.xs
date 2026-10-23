@@ -16,7 +16,7 @@ query "sendgrid/validate" verb=POST {
       value = ""
     }
   
-    db.add usuarios {
+    db.add "" {
       enforce_hidden_fields = false
       data = {}
     } as $user1

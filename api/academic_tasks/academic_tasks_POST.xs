@@ -1,13 +1,13 @@
 // Cria uma nova tarefa acadêmica vinculada ao usuário autenticado
-query "academic_tasks" verb=POST {
+query academic_tasks verb=POST {
   api_group = "academic_Tasks"
-  auth = "usuarios"
+  auth = ""
 
   input {
     text title filters=trim
     int subject_id filters=min:1
     text? priority?="Média" filters=trim
-    text? status?="Pendente" filters=trim
+    text? status?=Pendente filters=trim
     timestamp? due_date?
   }
 
@@ -17,13 +17,13 @@ query "academic_tasks" verb=POST {
       where = $db.subjects.id == $input.subject_id && $db.subjects.user_id == $auth.id
       return = {type: "single"}
     } as $subject
-
+  
     precondition ($subject != null) {
       error_type = "notfound"
       error = "Disciplina associada não encontrada ou não pertence a este usuário."
     }
-
-    db.add academic_tasks {
+  
+    db.add "" {
       data = {
         created_at: "now"
         title     : $input.title

@@ -7,14 +7,14 @@ table subjects {
     timestamp created_at?=now {
       visibility = "private"
     }
-
+  
     text name filters=trim
     text teacher filters=trim
     int hours
-
+  
     // Referência ao usuário da tabela de autenticação usuarios
     int user_id {
-      table = "usuarios"
+      table = ""
     }
   }
 

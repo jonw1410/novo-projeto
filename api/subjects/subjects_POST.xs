@@ -1,7 +1,7 @@
 // Cria uma nova disciplina vinculada ao usuário autenticado
-query "subjects" verb=POST {
+query subjects verb=POST {
   api_group = "Subjects"
-  auth = "usuarios"
+  auth = ""
 
   input {
     text name filters=trim
