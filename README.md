@@ -24,3 +24,7 @@ git status
 git add para adicionar
 cls pra limpa area de trabalho
 
+streamlit run app.py  para entra no site
+
+### instalação dos programas atalhos 
+pip install streamlit requests python-dotenv    para acessa html
