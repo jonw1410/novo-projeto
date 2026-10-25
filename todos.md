@@ -5,6 +5,8 @@
   - Especificação principal consolidada em `openspec/specs/subjects/spec.md`
 - [x] `create-subjects-table` -> Arquivado em `openspec/changes/archive/2026-09-25-create-subjects-table`
   - Especificação principal consolidada em `openspec/specs/subjects-table/spec.md`
+- [x] `cadastro-login` -> Arquivado em `openspec/changes/archive/2026-10-25-cadastro-login`
+  - Especificação principal consolidada em `openspec/specs/cadastro-login/spec.md`
 
 ## Mudança Ativa Concluída: `api-crud`
 - [x] Tabela `academic_tasks` em `table/academic_tasks.xs` (e `tables/academic_tasks.xs`)
@@ -13,5 +15,4 @@
 - Status: Arquivos gerados localmente e validados no OpenSpec (`all_done`). Pendente de revisão e push manual pelo desenvolvedor.
 
 ## Próximos Passos (Aguardando solicitação explícita do desenvolvedor)
-- [ ] Integração com frontend (quando solicitado)
-- [ ] Arquivamento da mudança (`/opsx:archive`)
+- [ ] Próxima funcionalidade a ser planejada e implementada quando solicitado.
