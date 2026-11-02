@@ -21,7 +21,7 @@ git pull origin + nome da branch pra muda
 git pusch  pra subir 
 git merge + nome pra fazer a copia
 git status
-git add para adicionar
+git add . para adicionar
 cls pra limpa area de trabalho
 
 streamlit run app.py  para entra no site

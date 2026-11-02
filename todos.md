@@ -7,6 +7,8 @@
   - Especificação principal consolidada em `openspec/specs/subjects-table/spec.md`
 - [x] `cadastro-login` -> Arquivado em `openspec/changes/archive/2026-10-25-cadastro-login`
   - Especificação principal consolidada em `openspec/specs/cadastro-login/spec.md`
+- [x] `logica-calculo-progresso` -> Arquivado em `openspec/changes/archive/2026-11-02-logica-calculo-progresso`
+  - Especificação principal consolidada em `openspec/specs/calculate-progress/spec.md`
 
 ## Mudança Ativa Concluída: `api-crud`
 - [x] Tabela `academic_tasks` em `table/academic_tasks.xs` (e `tables/academic_tasks.xs`)
