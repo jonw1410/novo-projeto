@@ -8,7 +8,7 @@ function "auth/generate_otp" {
 
   stack {
     // Deleta OTPs antigos para este email
-    db.bulk.delete userOTP {
+    db.bulk.delete "" {
       where = $db.userOTP.Email == $input.email
     } as $deleted
   
@@ -25,7 +25,7 @@ function "auth/generate_otp" {
     }
   
     // Salva o novo OTP no banco de dados
-    db.add userOTP {
+    db.add "" {
       enforce_hidden_fields = false
       data = {
         Email         : $input.email

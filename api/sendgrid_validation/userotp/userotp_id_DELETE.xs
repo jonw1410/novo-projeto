@@ -7,7 +7,7 @@ query "userotp/{userotp_id}" verb=DELETE {
   }
 
   stack {
-    db.del userOTP {
+    db.del "" {
       field_name = "id"
       field_value = $input.userotp_id
     }

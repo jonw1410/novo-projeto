@@ -28,3 +28,7 @@ streamlit run app.py  para entra no site
 
 ### instalação dos programas atalhos 
 pip install streamlit requests python-dotenv    para acessa html
+
+/opsx: apply       "PARA VERIFICAR IMPLANTAR"
+
+/opsx:archive      "PARA FINALIZAR PROCEDIMENTO"

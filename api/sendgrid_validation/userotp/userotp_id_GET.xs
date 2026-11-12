@@ -7,7 +7,7 @@ query "userotp/{userotp_id}" verb=GET {
   }
 
   stack {
-    db.get userOTP {
+    db.get "" {
       field_name = "id"
       field_value = $input.userotp_id
     } as $userotp

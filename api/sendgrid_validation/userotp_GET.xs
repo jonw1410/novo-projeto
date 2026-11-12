@@ -6,7 +6,7 @@ query userotp verb=GET {
   }
 
   stack {
-    db.query userOTP {
+    db.query "" {
       return = {type: "list"}
     } as $userotp
   }

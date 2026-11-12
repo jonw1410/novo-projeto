@@ -1,40 +1,24 @@
-table {
-  name = "academic_tasks"
-  primary_key = "id"
-  columns {
-    id {
-      type = "integer"
-      auto_increment = true
-    }
-    title {
-      type = "text"
-    }
-    description {
-      type = "text"
-    }
-    due_date {
-      type = "date"
-    }
-    status {
-      type = "text"
-    }
-    subject_id {
-      type = "integer"
-      reference = "subjects.id"
-    }
-    user_id {
-      type = "integer"
-      description = "Owner user"
-    }
-    created_at {
-      type = "datetime"
-      default = "CURRENT_TIMESTAMP"
-    }
-    updated_at {
-      type = "datetime"
-      default = "CURRENT_TIMESTAMP"
-      on_update = "CURRENT_TIMESTAMP"
-    }
-  }
-}
+// Tabela de tarefas acadêmicas
+table academic_tasks {
+  auth = false
 
+  schema {
+    int id
+    text title
+    text description
+    date due_date
+    text status
+    int subject_id {
+      table = "subjects"
+    }
+  
+    // Owner user
+    int user_id
+  
+    timestamp created_at?=now
+    timestamp updated_at?=now
+  }
+
+  index = [{type: "primary", field: [{name: "id"}]}]
+  guid = "qxF2OmcGtD2o98GQIXeu1sbx79U"
+}

@@ -1,7 +1,7 @@
 // Deleta uma disciplina garantindo a posse pelo usuário autenticado
 query "subjects/{id}" verb=DELETE {
   api_group = "Subjects"
-  auth = "usuarios"
+  auth = "user"
 
   input {
     int id filters=min:1

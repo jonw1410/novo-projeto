@@ -1,19 +1,16 @@
-// Lista todas as tarefas acadêmicas do usuário autenticado
+// Query all academic_tasks records
 query academic_tasks verb=GET {
   api_group = "academic_Tasks"
-  auth = ""
 
   input {
   }
 
   stack {
-    db.query "" {
-      where = $db.academic_tasks.user_id == $auth.id
-      sort = {academic_tasks.created_at: "desc"}
+    db.query academic_tasks {
       return = {type: "list"}
-    } as $tasks
+    } as $model
   }
 
-  response = $tasks
-  guid = "DwX8sKUhwg7TdY_L4UonG5hZ8Xc"
+  response = $model
+  guid = "u15PLxiFulN9HA_-xTmQoDOUwIU"
 }

@@ -6,7 +6,7 @@ addon content_of_user {
   }
 
   stack {
-    db.query content {
+    db.query "" {
       where = $db.content.user_id == $input.user_id
       return = {type: "list"}
     }

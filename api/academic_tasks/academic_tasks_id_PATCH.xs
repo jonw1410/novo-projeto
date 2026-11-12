@@ -1,7 +1,7 @@
 // Atualiza uma tarefa acadêmica garantindo a posse pelo usuário autenticado
 query "academic_tasks/{id}" verb=PATCH {
   api_group = "academic_Tasks"
-  auth = "usuarios"
+  auth = "user"
 
   input {
     int id filters=min:1

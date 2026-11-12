@@ -4,12 +4,12 @@ query user_envio_OTP verb=POST {
 
   input {
     dblink {
-      table = "userOTP"
+      table = ""
     }
   }
 
   stack {
-    db.add userOTP {
+    db.add "" {
       enforce_hidden_fields = false
       data = {created_at: "now"}
     } as $userotp
