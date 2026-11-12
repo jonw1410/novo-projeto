@@ -24,6 +24,22 @@ git status
 git add . para adicionar
 cls pra limpa area de trabalho
 
+NO XANO
+
+xano --version    "VERIFICAR VERSÃO INSTALADA" 
+
+xano update --check   "VERIFICAR SE EXISTIR ATUALIZAÇÃO"
+
+xano update           "ATUALIZAR O XANO CLI"
+
+xano workspace pull  "PARA PUXAR CONTEUDOS XANO PARA VS CODE"
+
+xano workspace list  "PARA VERIFICAR SEU PROJETO"
+
+xano workspace push  "PARA ENVIAR XANO AS INFORMAÇÃO"
+xano workspace push --dry-run  "PARA VER PRIMEIRO OQ SERA ENVIADO"
+
+
 streamlit run app.py  para entra no site
 
 ### instalação dos programas atalhos 
