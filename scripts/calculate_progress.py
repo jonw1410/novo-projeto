@@ -1,4 +1,4 @@
-﻿"""
+"""
 EduTrack AI - Academic Progress Calculation Script
 Calculates subject completion percentage based on its associated tasks fetched from the CRUD endpoint.
 Returns structured JSON metrics.
@@ -11,6 +11,14 @@ import sys
 from typing import Any, Dict, List, Optional, Union
 import requests
 from dotenv import load_dotenv
+
+# Ensure root directory is in sys.path
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+try:
+    from utils.xano_client import get_config_value
+except ImportError:
+    def get_config_value(key: str, default: str = "") -> str:
+        return os.getenv(key, default)
 
 # Load environment variables from .env at project root
 load_dotenv()
@@ -36,11 +44,11 @@ def authenticate_user(
     Authenticate with Xano auth/login endpoint to retrieve an auth token.
     Reads credentials from arguments or from XANO_USER_EMAIL / XANO_USER_PASSWORD in .env.
     """
-    resolved_email = email or os.getenv("XANO_USER_EMAIL")
-    resolved_password = password or os.getenv("XANO_USER_PASSWORD")
+    resolved_email = email or get_config_value("XANO_USER_EMAIL")
+    resolved_password = password or get_config_value("XANO_USER_PASSWORD")
     resolved_auth_url = (
         auth_base_url
-        or os.getenv("XANO_BASE_URL")
+        or get_config_value("XANO_BASE_URL")
         or DEFAULT_AUTH_API_URL
     ).rstrip("/")
 
@@ -112,7 +120,7 @@ def fetch_academic_tasks(
     """
     resolved_base_url = (
         base_url
-        or os.getenv("XANO_TASKS_BASE_URL")
+        or get_config_value("XANO_TASKS_BASE_URL")
         or DEFAULT_TASKS_API_URL
     ).rstrip("/")
 
@@ -120,7 +128,7 @@ def fetch_academic_tasks(
     headers: Dict[str, str] = {"Content-Type": "application/json"}
 
     # Resolve token directly, or attempt automatic authentication
-    resolved_token = auth_token or os.getenv("XANO_AUTH_TOKEN")
+    resolved_token = auth_token or get_config_value("XANO_AUTH_TOKEN")
     if not resolved_token:
         resolved_token = authenticate_user(email=email, password=password)
 

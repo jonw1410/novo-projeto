@@ -341,6 +341,8 @@ with tab_config:
     st.subheader("⚙️ Diagnóstico de Conexão com o Xano")
     st.caption("Verifique como as URLs e o token estão configurados na sua aplicação.")
     
+    config_source = "Streamlit Secrets (.streamlit/secrets.toml)" if hasattr(st, "secrets") and "XANO_BASE_URL" in st.secrets else "Variáveis de Ambiente (.env) / Fallback"
+    st.markdown(f"**Origem das Configurações:** `{config_source}`")
     st.markdown(f"**Host Xano:** `{urls['host']}`")
     st.markdown(f"**URL do Grupo de Tarefas (Canonical VIQ0W9tI):** `{urls['tasks']}`")
     st.markdown(f"**URL do Grupo de Disciplinas (Canonical WTDGU8XU):** `{urls['subjects']}`")
