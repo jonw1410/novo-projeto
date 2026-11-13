@@ -4,23 +4,25 @@ Allows users to register, log in, and view profile details via Xano authenticati
 """
 
 import os
+import sys
 from typing import Any, Dict
 import requests
 import streamlit as st
-from dotenv import load_dotenv
+
+# Ensure root directory is in sys.path for utils import
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+from utils.xano_client import get_config_value
 
 # ------------------------------------------------------------
-# Environment & Configuration
+# Environment & Configuration (Streamlit Secrets with fallback)
 # ------------------------------------------------------------
-load_dotenv()
-
 st.set_page_config(page_title="Perfil - EduTrack AI", page_icon="👤")
 
-BASE_URL = os.getenv("XANO_BASE_URL", "").rstrip("/")
+BASE_URL = get_config_value("XANO_BASE_URL", "").rstrip("/")
 
 if not BASE_URL:
-    st.error("⚠️ Variável `XANO_BASE_URL` não encontrada no arquivo `.env` na raiz do projeto.")
-    st.info("Por favor, configure `XANO_BASE_URL` no arquivo `.env` na raiz do projeto.")
+    st.error("⚠️ Configuração `XANO_BASE_URL` não encontrada no `.streamlit/secrets.toml` nem nas variáveis de ambiente.")
+    st.info("Por favor, configure `XANO_BASE_URL` no arquivo `.streamlit/secrets.toml`.")
     st.stop()
 
 ENDPOINT_SIGNUP = f"{BASE_URL}/auth/signup"

@@ -16,7 +16,7 @@ from dotenv import load_dotenv
 # Ensure root directory is in sys.path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from utils.pdf_generator import build_pdf_document
-from utils.xano_client import get_endpoint_urls, request_with_fallback
+from utils.xano_client import get_endpoint_urls, request_with_fallback, get_config_value
 
 load_dotenv()
 
@@ -183,7 +183,7 @@ def main():
     parser.add_argument("--mock", action="store_true", help="Utilizar dados simulados para teste offline")
     args = parser.parse_args()
 
-    token = args.token or os.getenv("XANO_AUTH_TOKEN")
+    token = args.token or get_config_value("XANO_AUTH_TOKEN")
     student_name = args.student_name
 
     if token and not args.mock:

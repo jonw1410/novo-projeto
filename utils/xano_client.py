@@ -1,7 +1,7 @@
 """
 EduTrack AI - Xano Client & URL Resolver
-Handles dynamic endpoint resolution, automatic fallback between API groups,
-and detailed diagnostic formatting for Xano connections.
+Handles dynamic endpoint resolution prioritizing Streamlit secrets (st.secrets),
+with fallback to environment variables and detailed diagnostics for Xano connections.
 """
 
 import os
@@ -9,16 +9,38 @@ from typing import Any, Dict, List, Tuple
 import requests
 from dotenv import load_dotenv
 
+# Still load dotenv for CLI / fallback environments
 load_dotenv()
+
+
+def get_config_value(key: str, default: str = "") -> str:
+    """
+    Retrieve configuration value prioritizing Streamlit secrets (st.secrets),
+    with graceful fallback to environment variables (os.getenv) and default value.
+    """
+    try:
+        import streamlit as st
+        if hasattr(st, "secrets") and key in st.secrets:
+            val = st.secrets[key]
+            if val is not None and str(val).strip():
+                return str(val).strip()
+    except Exception:
+        pass
+
+    env_val = os.getenv(key)
+    if env_val is not None and str(env_val).strip():
+        return str(env_val).strip()
+
+    return default
 
 
 def get_endpoint_urls() -> Dict[str, str]:
     """
     Resolve base URLs for Auth, Subjects, and Tasks groups.
-    Supports individual group URLs or derives them from XANO_BASE_URL.
+    Prioritizes Streamlit secrets (st.secrets) with fallback to os.getenv.
     """
-    base_url = os.getenv("XANO_BASE_URL", "").rstrip("/")
-    
+    base_url = get_config_value("XANO_BASE_URL", "").rstrip("/")
+
     # Extract host prefix, e.g. https://x8ki-letl-twmt.n7.xano.io
     if "/api:" in base_url:
         host = base_url.split("/api:")[0]
@@ -29,8 +51,8 @@ def get_endpoint_urls() -> Dict[str, str]:
     # Subjects canonical: WTDGU8XU
     # Tasks canonical: VIQ0W9tI
     # Auth canonical: cPkbqL8B
-    subjects_base = os.getenv("XANO_SUBJECTS_BASE_URL", "").rstrip("/") or f"{host}/api:WTDGU8XU"
-    tasks_base = os.getenv("XANO_TASKS_BASE_URL", "").rstrip("/") or f"{host}/api:VIQ0W9tI"
+    subjects_base = get_config_value("XANO_SUBJECTS_BASE_URL", "").rstrip("/") or f"{host}/api:WTDGU8XU"
+    tasks_base = get_config_value("XANO_TASKS_BASE_URL", "").rstrip("/") or f"{host}/api:VIQ0W9tI"
     auth_base = base_url or f"{host}/api:cPkbqL8B"
 
     return {
@@ -38,8 +60,8 @@ def get_endpoint_urls() -> Dict[str, str]:
         "auth": auth_base,
         "subjects": subjects_base,
         "tasks": tasks_base,
-        "fallback_subjects": f"{base_url}/subjects",
-        "fallback_tasks": f"{base_url}/academic_tasks",
+        "fallback_subjects": f"{base_url}/subjects" if base_url else "",
+        "fallback_tasks": f"{base_url}/academic_tasks" if base_url else "",
     }
 
 
@@ -51,7 +73,7 @@ def parse_xano_error(err: requests.RequestException) -> Dict[str, Any]:
         "message": str(err),
         "hint": "",
     }
-    
+
     if hasattr(err, "response") and err.response is not None:
         try:
             body = err.response.json()
@@ -59,7 +81,7 @@ def parse_xano_error(err: requests.RequestException) -> Dict[str, Any]:
                 info["message"] = body.get("message") or body.get("error") or str(body)
         except Exception:
             info["message"] = err.response.text or str(err)
-            
+
     # Intelligent hints for common Xano errors
     msg = info["message"].lower()
     if "token belongs to a different object type" in msg:
@@ -81,9 +103,9 @@ def parse_xano_error(err: requests.RequestException) -> Dict[str, Any]:
     elif "connection" in msg or "nameresolution" in msg:
         info["hint"] = (
             "Não foi possível conectar ao servidor do Xano. Verifique sua conexão com a internet "
-            "e a URL configurada no arquivo .env."
+            "e as URLs configuradas nos secrets do Streamlit (.streamlit/secrets.toml)."
         )
-        
+
     return info
 
 
