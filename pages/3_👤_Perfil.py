@@ -12,11 +12,13 @@ import streamlit as st
 # Ensure root directory is in sys.path for utils import
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from utils.xano_client import get_config_value
+from utils.ui_theme import apply_custom_theme
 
 # ------------------------------------------------------------
 # Environment & Configuration (Streamlit Secrets with fallback)
 # ------------------------------------------------------------
 st.set_page_config(page_title="Perfil - EduTrack AI", page_icon="👤")
+apply_custom_theme()
 
 BASE_URL = get_config_value("XANO_BASE_URL", "").rstrip("/")
 

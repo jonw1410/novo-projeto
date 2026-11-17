@@ -1,7 +1,9 @@
 import streamlit as st
+from utils.ui_theme import apply_custom_theme
 
 # Configuração da Página (Título na aba do navegador)
 st.set_page_config(page_title="EduTrack AI", page_icon="🎓")
+apply_custom_theme()
 
 # Título Principal
 st.title("🎓 EduTrack AI")
