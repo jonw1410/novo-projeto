@@ -1,214 +1,337 @@
 """
 EduTrack AI - UI Theme & Visual Styling Module
-Provides modern, vibrant, and harmonic CSS styling for Streamlit.
-Eliminates plain white layouts with subtle mesh gradients, vibrant cards,
-elevated metric blocks, and lively interactive elements.
+Theme: "Dark Golden Fire" (Escuro Dourado Fogo)
+Combines deep luxury obsidian dark with glowing molten gold and fierce fire flame accents.
 """
 
 import streamlit as st
 
 
 def apply_custom_theme() -> None:
-    """Inject a vibrant, modern, and harmonious CSS theme into the active Streamlit page."""
+    """Inject the Dark Golden Fire theme into the active Streamlit page."""
     custom_css = """
     <style>
     /* ========================================================
-       EduTrack AI - Vibrant & Harmonic Visual Theme
+       EduTrack AI - Dark Golden Fire Theme
+       (Tema Escuro - Dourado Fogo Intenso)
        ======================================================== */
 
-    /* Global App Background: Soft ambient mesh gradient (not plain white) */
+    /* Global Background: Deep Obsidian Dark with Molten Gold & Fire Aura */
     .stApp {
-        background: radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.10) 0%, rgba(248, 250, 252, 0.95) 45%),
-                    radial-gradient(circle at 85% 85%, rgba(124, 58, 237, 0.08) 0%, rgba(241, 245, 249, 0.95) 50%),
-                    linear-gradient(180deg, #F0F4FF 0%, #F8FAFC 50%, #F1F5F9 100%) !important;
+        background: radial-gradient(circle at 12% 15%, rgba(245, 158, 11, 0.20) 0%, transparent 45%),
+                    radial-gradient(circle at 88% 18%, rgba(234, 88, 12, 0.18) 0%, transparent 45%),
+                    radial-gradient(circle at 50% 85%, rgba(217, 119, 6, 0.15) 0%, transparent 55%),
+                    linear-gradient(180deg, #09090D 0%, #111117 50%, #0C0C10 100%) !important;
         background-attachment: fixed !important;
+        color: #F8FAFC !important;
     }
 
-    /* Headings: Lively Gradient & Visual Weight */
+    /* General typography contrast on dark canvas */
+    .stApp p, .stApp span, .stApp label, .stApp div {
+        color: #E2E8F0;
+    }
+
+    /* Headings: Blazing Golden Fire (Intense, Radiant & Fiery) */
     h1 {
-        background: linear-gradient(120deg, #1E1B4B 0%, #4338CA 50%, #6366F1 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        font-weight: 800 !important;
+        background: linear-gradient(125deg, #FFFFFF 0%, #FEF08A 25%, #F59E0B 65%, #EA580C 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        font-weight: 900 !important;
         letter-spacing: -0.02em !important;
-        margin-bottom: 0.5rem !important;
+        filter: drop-shadow(0 0 18px rgba(245, 158, 11, 0.55));
+        margin-bottom: 0.6rem !important;
     }
 
     h2, h3 {
-        color: #1E293B !important;
-        font-weight: 700 !important;
+        color: #FDE047 !important;
+        font-weight: 800 !important;
         letter-spacing: -0.01em !important;
+        text-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
     }
 
-    /* Metric Cards: Elevated, Vibrant with Indigo Accent Bar */
+    h4, h5, h6 {
+        color: #FCD34D !important;
+        font-weight: 700 !important;
+    }
+
+    /* Metric Cards: Dark Obsidian with Fiery Gold Left Bar & Amber Aura */
     [data-testid="stMetric"] {
-        background: #FFFFFF !important;
+        background: linear-gradient(145deg, #15151D 0%, #0E0E14 100%) !important;
         border-radius: 14px !important;
-        padding: 16px 20px !important;
-        box-shadow: 0 4px 20px -2px rgba(79, 70, 229, 0.12), 0 2px 8px -1px rgba(0, 0, 0, 0.04) !important;
-        border-left: 5px solid #4F46E5 !important;
-        border-top: 1px solid rgba(226, 232, 240, 0.8) !important;
-        border-right: 1px solid rgba(226, 232, 240, 0.8) !important;
-        border-bottom: 1px solid rgba(226, 232, 240, 0.8) !important;
-        transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+        padding: 18px 22px !important;
+        box-shadow: 0 4px 26px -2px rgba(245, 158, 11, 0.28), 0 2px 12px -1px rgba(0, 0, 0, 0.8) !important;
+        border-left: 5px solid #F59E0B !important;
+        border-top: 1px solid rgba(245, 158, 11, 0.4) !important;
+        border-right: 1px solid rgba(245, 158, 11, 0.25) !important;
+        border-bottom: 1px solid rgba(245, 158, 11, 0.25) !important;
+        transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
     }
 
     [data-testid="stMetric"]:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 8px 26px -2px rgba(79, 70, 229, 0.22) !important;
+        transform: translateY(-3px) scale(1.01) !important;
+        box-shadow: 0 8px 36px 0 rgba(245, 158, 11, 0.50), 0 0 20px rgba(234, 88, 12, 0.35) !important;
+        border-color: #FBBF24 !important;
     }
 
     [data-testid="stMetricValue"] {
-        color: #4F46E5 !important;
-        font-weight: 800 !important;
-        font-size: 1.85rem !important;
+        background: linear-gradient(135deg, #FFFFFF 0%, #FEF08A 25%, #F59E0B 75%, #EA580C 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        font-weight: 900 !important;
+        font-size: 2.2rem !important;
+        filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.45));
     }
 
     [data-testid="stMetricLabel"] {
-        color: #475569 !important;
-        font-weight: 700 !important;
-        font-size: 0.82rem !important;
+        color: #FDE047 !important;
+        font-weight: 800 !important;
+        font-size: 0.85rem !important;
         text-transform: uppercase !important;
-        letter-spacing: 0.6px !important;
+        letter-spacing: 0.9px !important;
     }
 
-    /* Primary & Action Buttons: Rich Vibrant Gradient with Glow Hover */
+    /* Primary Buttons: Pure Fiery Gold (Molten Blaze & Burning Flame) */
     button[kind="primary"], 
     .stButton > button[type="primary"], 
     div.stButton > button[kind="primary"] {
-        background: linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%) !important;
+        background: linear-gradient(135deg, #B91C1C 0%, #DC2626 25%, #EA580C 65%, #F59E0B 100%) !important;
         color: #FFFFFF !important;
-        font-weight: 700 !important;
+        font-weight: 900 !important;
         border: none !important;
-        border-radius: 10px !important;
-        padding: 0.55rem 1.4rem !important;
-        box-shadow: 0 4px 14px 0 rgba(79, 70, 229, 0.35) !important;
-        transition: all 0.2s ease-in-out !important;
+        border-radius: 12px !important;
+        padding: 0.6rem 1.6rem !important;
+        box-shadow: 0 4px 22px 0 rgba(245, 158, 11, 0.60), 0 0 14px rgba(234, 88, 12, 0.40) !important;
+        transition: all 0.25s ease-in-out !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.6px !important;
     }
 
     button[kind="primary"]:hover, 
     .stButton > button[type="primary"]:hover, 
     div.stButton > button[kind="primary"]:hover {
-        transform: translateY(-2px) !important;
-        box-shadow: 0 6px 22px 0 rgba(124, 58, 237, 0.50) !important;
-        background: linear-gradient(135deg, #4338CA 0%, #6D28D9 100%) !important;
+        transform: translateY(-2px) scale(1.02) !important;
+        box-shadow: 0 6px 32px 0 rgba(245, 158, 11, 0.85), 0 0 25px rgba(251, 191, 36, 0.7) !important;
+        background: linear-gradient(135deg, #991B1B 0%, #B91C1C 25%, #DC2626 60%, #EA580C 100%) !important;
+        color: #FFFFFF !important;
     }
 
-    /* Secondary Buttons: Crisp Slate with Vibrant Border */
+    /* Secondary Buttons: Dark Obsidian with Glowing Golden Outline */
     button[kind="secondary"], 
     .stButton > button[type="secondary"] {
-        background: #FFFFFF !important;
-        color: #334155 !important;
-        border: 1.5px solid #CBD5E1 !important;
-        border-radius: 10px !important;
-        font-weight: 600 !important;
+        background: rgba(20, 20, 28, 0.9) !important;
+        color: #FDE047 !important;
+        border: 1.5px solid #F59E0B !important;
+        border-radius: 12px !important;
+        font-weight: 700 !important;
+        box-shadow: 0 2px 12px rgba(245, 158, 11, 0.2) !important;
         transition: all 0.2s ease-in-out !important;
     }
 
     button[kind="secondary"]:hover, 
     .stButton > button[type="secondary"]:hover {
-        border-color: #6366F1 !important;
-        color: #4F46E5 !important;
-        background: #F8FAFC !important;
-        box-shadow: 0 2px 10px rgba(99, 102, 241, 0.12) !important;
+        border-color: #FBBF24 !important;
+        color: #FFFFFF !important;
+        background: rgba(245, 158, 11, 0.25) !important;
+        box-shadow: 0 0 20px rgba(245, 158, 11, 0.5) !important;
+        transform: translateY(-1px) !important;
     }
 
-    /* Download Buttons */
+    /* Download / Export Buttons: Golden Fire Burst */
     .stDownloadButton > button {
-        background: linear-gradient(135deg, #0284C7 0%, #2563EB 100%) !important;
-        color: #FFFFFF !important;
-        font-weight: 700 !important;
+        background: linear-gradient(135deg, #DC2626 0%, #EA580C 40%, #F59E0B 80%, #FDE047 100%) !important;
+        color: #0A0A0E !important;
+        font-weight: 900 !important;
         border: none !important;
-        border-radius: 10px !important;
-        box-shadow: 0 4px 14px 0 rgba(2, 132, 199, 0.30) !important;
+        border-radius: 12px !important;
+        box-shadow: 0 4px 22px 0 rgba(245, 158, 11, 0.50) !important;
         transition: all 0.2s ease-in-out !important;
+        text-transform: uppercase !important;
+        letter-spacing: 0.5px !important;
     }
 
     .stDownloadButton > button:hover {
         transform: translateY(-2px) !important;
-        box-shadow: 0 6px 20px 0 rgba(37, 99, 235, 0.45) !important;
+        box-shadow: 0 6px 30px 0 rgba(245, 158, 11, 0.80), 0 0 20px rgba(253, 224, 71, 0.6) !important;
+        color: #000000 !important;
     }
 
-    /* Tabs Styling: Modern Pills */
+    /* Tabs Styling: Dark with Fiery Gold Active Pill */
     .stTabs [data-baseweb="tab-list"] {
         gap: 8px !important;
-        background-color: rgba(226, 232, 240, 0.6) !important;
+        background-color: rgba(18, 18, 26, 0.95) !important;
         padding: 6px !important;
         border-radius: 14px !important;
-        border: 1px solid rgba(203, 213, 225, 0.6) !important;
+        border: 1.5px solid rgba(245, 158, 11, 0.35) !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.6) !important;
     }
 
     .stTabs [data-baseweb="tab"] {
         border-radius: 10px !important;
         padding: 8px 18px !important;
-        font-weight: 600 !important;
-        color: #475569 !important;
+        font-weight: 700 !important;
+        color: #94A3B8 !important;
         border: none !important;
         background-color: transparent !important;
         transition: all 0.2s ease !important;
     }
 
-    .stTabs [aria-selected="true"] {
-        background: #FFFFFF !important;
-        color: #4F46E5 !important;
-        box-shadow: 0 3px 12px rgba(79, 70, 229, 0.18) !important;
+    .stTabs [data-baseweb="tab"]:hover {
+        color: #FDE047 !important;
     }
 
-    /* Expanders: Card Appearance */
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.35) 0%, rgba(234, 88, 12, 0.28) 100%) !important;
+        color: #FEF08A !important;
+        border: 1.5px solid #F59E0B !important;
+        box-shadow: 0 0 18px rgba(245, 158, 11, 0.40) !important;
+    }
+
+    /* Expanders: Dark Obsidian with Fiery Gold Edges */
     [data-testid="stExpander"] {
-        background: #FFFFFF !important;
+        background: rgba(18, 18, 25, 0.95) !important;
         border-radius: 14px !important;
-        border: 1px solid #E2E8F0 !important;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03) !important;
+        border: 1px solid rgba(245, 158, 11, 0.35) !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6) !important;
         margin-bottom: 14px !important;
         transition: all 0.2s ease !important;
     }
 
     [data-testid="stExpander"]:hover {
-        border-color: #A5B4FC !important;
-        box-shadow: 0 4px 16px rgba(79, 70, 229, 0.08) !important;
+        border-color: #F59E0B !important;
+        box-shadow: 0 4px 25px rgba(245, 158, 11, 0.25) !important;
     }
 
     /* Alert / Notification Banners */
     .stAlert {
         border-radius: 12px !important;
-        font-weight: 500 !important;
-        border-width: 1px !important;
-        border-style: solid !important;
+        font-weight: 600 !important;
+        border: 1px solid rgba(245, 158, 11, 0.5) !important;
+        background: rgba(22, 19, 14, 0.95) !important;
     }
 
-    /* Input Focus Glow */
-    input:focus, select:focus, textarea:focus {
-        border-color: #6366F1 !important;
-        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.20) !important;
-    }
-
-    /* Sidebar Enhancement: Rich Contrasting Slate */
-    [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #0F172A 0%, #1E1B4B 100%) !important;
+    /* Inputs: Dark Base with Glowing Gold Focus */
+    .stTextInput > div > div > input, 
+    .stNumberInput > div > div > input, 
+    .stSelectbox > div > div, 
+    textarea {
+        background-color: #0E0E14 !important;
         color: #F8FAFC !important;
+        border: 1.5px solid rgba(245, 158, 11, 0.4) !important;
+        border-radius: 10px !important;
+        transition: all 0.2s ease !important;
     }
 
-    [data-testid="stSidebar"] [data-testid="stMarkdownContainer"] p,
-    [data-testid="stSidebar"] label {
+    .stTextInput > div > div > input:focus, 
+    .stNumberInput > div > div > input:focus, 
+    textarea:focus {
+        border-color: #F59E0B !important;
+        box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.35), 0 0 15px rgba(245, 158, 11, 0.25) !important;
+    }
+
+    /* Dataframe & Tables: Dark Obsidian with Gold Frame */
+    [data-testid="stDataFrame"] {
+        background: #0E0E14 !important;
+        border-radius: 12px !important;
+        border: 1.5px solid rgba(245, 158, 11, 0.35) !important;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.7) !important;
+    }
+
+    /* ========================================================
+       Sidebar: Dark Obsidian with Glowing Fiery Gold
+       ======================================================== */
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #07070A 0%, #101017 50%, #16120C 100%) !important;
+        border-right: 2px solid #F59E0B !important;
+        box-shadow: 4px 0 26px rgba(245, 158, 11, 0.30) !important;
+    }
+
+    [data-testid="stSidebar"] * {
         color: #E2E8F0 !important;
     }
 
     [data-testid="stSidebar"] h1, 
     [data-testid="stSidebar"] h2, 
     [data-testid="stSidebar"] h3 {
-        color: #FFFFFF !important;
-        background: none !important;
-        -webkit-text-fill-color: #FFFFFF !important;
+        background: linear-gradient(135deg, #FFFFFF 0%, #FDE047 30%, #F59E0B 70%, #EA580C 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        font-weight: 900 !important;
+        filter: drop-shadow(0 0 12px rgba(245, 158, 11, 0.5));
+    }
+
+    /* Links de Navegação na Barra Lateral */
+    [data-testid="stSidebarNav"] a {
+        background: rgba(18, 18, 26, 0.85) !important;
+        border: 1px solid rgba(245, 158, 11, 0.3) !important;
+        border-radius: 10px !important;
+        margin: 5px 0 !important;
+        padding: 8px 12px !important;
+        transition: all 0.2s ease !important;
+    }
+
+    [data-testid="stSidebarNav"] a:hover {
+        background: rgba(245, 158, 11, 0.2) !important;
+        border-color: #FBBF24 !important;
+        box-shadow: 0 0 16px rgba(245, 158, 11, 0.4) !important;
+        transform: translateX(3px) !important;
     }
 
     [data-testid="stSidebarNav"] span {
         color: #E2E8F0 !important;
-        font-weight: 600 !important;
+        font-weight: 700 !important;
     }
 
     [data-testid="stSidebarNav"] a:hover span {
-        color: #818CF8 !important;
+        color: #FEF08A !important;
+        text-shadow: 0 0 10px rgba(251, 191, 36, 0.7) !important;
+    }
+
+    [data-testid="stSidebarNav"] a[aria-current="page"] {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.30) 0%, rgba(234, 88, 12, 0.22) 100%) !important;
+        border: 1.5px solid #F59E0B !important;
+        border-left: 5px solid #F59E0B !important;
+        box-shadow: 0 0 20px rgba(245, 158, 11, 0.45) !important;
+    }
+
+    [data-testid="stSidebarNav"] a[aria-current="page"] span {
+        color: #FEF08A !important;
+        font-weight: 900 !important;
+        text-shadow: 0 0 8px rgba(251, 191, 36, 0.6) !important;
+    }
+
+    /* Radio buttons de navegação na Sidebar (Dashboard / app.py) */
+    [data-testid="stSidebar"] div[role="radiogroup"] label {
+        background: rgba(18, 18, 26, 0.85) !important;
+        border-radius: 10px !important;
+        padding: 8px 14px !important;
+        margin-bottom: 6px !important;
+        border: 1px solid rgba(245, 158, 11, 0.3) !important;
+        transition: all 0.2s ease !important;
+    }
+
+    [data-testid="stSidebar"] div[role="radiogroup"] label:hover {
+        background: rgba(245, 158, 11, 0.2) !important;
+        border-color: #FBBF24 !important;
+        box-shadow: 0 0 14px rgba(245, 158, 11, 0.35) !important;
+        transform: translateX(2px) !important;
+    }
+
+    [data-testid="stSidebar"] div[role="radiogroup"] label span {
+        color: #E2E8F0 !important;
+        font-weight: 700 !important;
+    }
+
+    [data-testid="stSidebar"] div[role="radiogroup"] label[data-checked="true"] {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.35) 0%, rgba(234, 88, 12, 0.25) 100%) !important;
+        border: 1.5px solid #F59E0B !important;
+        border-left: 5px solid #F59E0B !important;
+        box-shadow: 0 0 18px rgba(245, 158, 11, 0.45) !important;
+    }
+
+    [data-testid="stSidebar"] div[role="radiogroup"] label[data-checked="true"] span {
+        color: #FEF08A !important;
+        font-weight: 900 !important;
+        text-shadow: 0 0 8px rgba(251, 191, 36, 0.6) !important;
     }
     </style>
     """

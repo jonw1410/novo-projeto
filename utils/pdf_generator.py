@@ -40,8 +40,8 @@ def build_pdf_document(title: str, subtitle: str, metadata: Dict[str, str], sect
     # Coordinate system: origin (0, 0) at bottom-left. A4 is 595.28 x 841.89 points.
     y = 800
     
-    # Header background bar (dark blue)
-    stream_lines.append("0.12 0.23 0.38 rg") # fill color #1F3B61
+    # Header background bar (celestial gold / fire amber)
+    stream_lines.append("0.85 0.55 0.05 rg") # fill color #D97706
     stream_lines.append(f"40 {y - 45} 515 55 re f")
     
     # Header title (white, bold)
@@ -98,7 +98,7 @@ def build_pdf_document(title: str, subtitle: str, metadata: Dict[str, str], sect
         items = section.get("items", [])
         
         # Section Header
-        stream_lines.append("0.12 0.23 0.38 rg")
+        stream_lines.append("0.85 0.55 0.05 rg")
         stream_lines.append("BT")
         stream_lines.append("/F2 14 Tf")
         stream_lines.append(f"40 {y} Td")
@@ -106,7 +106,7 @@ def build_pdf_document(title: str, subtitle: str, metadata: Dict[str, str], sect
         stream_lines.append("ET")
         
         # Underline
-        stream_lines.append("0.12 0.23 0.38 RG")
+        stream_lines.append("0.85 0.55 0.05 RG")
         stream_lines.append("1.5 w")
         stream_lines.append(f"40 {y - 4} m 555 {y - 4} l S")
         
@@ -125,8 +125,8 @@ def build_pdf_document(title: str, subtitle: str, metadata: Dict[str, str], sect
                 if y < 80: # Avoid drawing off-page
                     break
                     
-                # Bullet circle
-                stream_lines.append("0.2 0.4 0.6 rg")
+                # Bullet circle (golden accent)
+                stream_lines.append("0.96 0.62 0.04 rg")
                 stream_lines.append(f"48 {y + 3} 3 0 360 arc f") # In PDF syntax, simple small rect:
                 stream_lines.append(f"47 {y + 2} 4 4 re f")
                 
