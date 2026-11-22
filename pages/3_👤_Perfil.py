@@ -20,12 +20,7 @@ from utils.ui_theme import apply_custom_theme
 st.set_page_config(page_title="Perfil - EduTrack AI", page_icon="👤")
 apply_custom_theme()
 
-BASE_URL = get_config_value("XANO_BASE_URL", "").rstrip("/")
-
-if not BASE_URL:
-    st.error("⚠️ Configuração `XANO_BASE_URL` não encontrada no `.streamlit/secrets.toml` nem nas variáveis de ambiente.")
-    st.info("Por favor, configure `XANO_BASE_URL` no arquivo `.streamlit/secrets.toml`.")
-    st.stop()
+BASE_URL = get_config_value("XANO_BASE_URL", "").rstrip("/") or "https://x8ki-letl-twmt.n7.xano.io/api:cPkbqL8B"
 
 ENDPOINT_SIGNUP = f"{BASE_URL}/auth/signup"
 ENDPOINT_LOGIN = f"{BASE_URL}/auth/login"
@@ -74,8 +69,6 @@ def api_get_profile(token: str) -> Dict[str, Any]:
 # ------------------------------------------------------------
 # Streamlit Interface
 # ------------------------------------------------------------
-st.title("👤 Perfil do Usuário")
-
 # Initialize session state keys
 if "token" not in st.session_state:
     st.session_state["token"] = None
@@ -84,9 +77,10 @@ if "user" not in st.session_state:
 
 # If user is already authenticated
 if st.session_state.get("token"):
+    st.title("👤 Meu Perfil")
     user_token = st.session_state["token"]
 
-    st.success("✅ Sessão ativa com o backend Xano.")
+    st.success("✅ **Sessão Ativa:** Conectado com sucesso ao backend Xano.")
 
     # Fetch fresh profile data
     try:
@@ -104,76 +98,105 @@ if st.session_state.get("token"):
         user_id = profile_data.get("id", "-")
         user_role = profile_data.get("role", "student")
 
-        st.markdown(f"**Nome:** {user_name}")
-        st.markdown(f"**E-mail:** {user_email}")
-        st.markdown(f"**ID do Usuário:** `{user_id}`")
-        st.markdown(f"**Função / Role:** `{user_role}`")
+        st.markdown(f"**👤 Nome:** `{user_name}`")
+        st.markdown(f"**📧 E-mail:** `{user_email}`")
+        st.markdown(f"**🆔 ID do Usuário:** `{user_id}`")
+        st.markdown(f"**🎓 Função / Papel:** `{user_role}`")
 
     with col2:
         st.write("")
         st.write("")
-        if st.button("🚪 Sair (Logout)", type="secondary", use_container_width=True):
+        if st.button("🚪 Sair da Conta (Logout)", type="secondary", use_container_width=True):
             st.session_state["token"] = None
             st.session_state["user"] = None
             st.rerun()
 
-    with st.expander("🔍 Detalhes Técnicos (JSON retornado pelo Xano)"):
+    with st.expander("🔍 Detalhes Técnicos da Conta (JSON retornado pelo Xano)"):
         st.json(profile_data)
 
 else:
-    # Not authenticated: Show Login & Signup tabs
-    tab_login, tab_signup = st.tabs(["🔐 Entrar (Login)", "🟢 Criar Conta (Cadastro)"])
+    # Not authenticated: Prominent, Centered Login & Signup Hero Layout
+    col_l, col_center, col_r = st.columns([1, 4, 1])
 
-    # --- TAB LOGIN ---
-    with tab_login:
-        st.subheader("Acesse sua conta")
-        with st.form("form_login"):
-            login_email = st.text_input("E-mail", placeholder="seu-email@exemplo.com", key="input_login_email")
-            login_password = st.text_input("Senha", type="password", placeholder="Digite sua senha", key="input_login_password")
-            submit_login = st.form_submit_button("Entrar", type="primary")
+    with col_center:
+        st.markdown("""
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <div style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 20px; border-radius: 9999px; background: rgba(245, 158, 11, 0.16); border: 1.5px solid #F59E0B; color: #FDE047; font-weight: 800; font-size: 0.95rem; margin-bottom: 14px; letter-spacing: 1px;">
+                <span>✨</span> AUTENTICAÇÃO EDUTRACK AI
+            </div>
+            <h1 style="font-size: 2.8rem; font-weight: 900; background: linear-gradient(135deg, #FFFFFF 0%, #FDE047 30%, #F59E0B 70%, #EA580C 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; filter: drop-shadow(0 0 18px rgba(245, 158, 11, 0.55));">
+                Acesse sua Conta
+            </h1>
+            <p style="color: #94A3B8; font-size: 1.15rem; margin-top: 10px; font-weight: 500;">
+                Faça login ou crie sua conta para gerenciar notas, disciplinas e tarefas acadêmicas.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
 
-            if submit_login:
-                if not login_email or not login_password:
-                    st.warning("Por favor, preencha o e-mail e a senha.")
-                else:
-                    try:
-                        with st.spinner("Autenticando..."):
-                            auth_response = api_login(login_email, login_password)
-                            token = auth_response.get("authToken") or auth_response.get("token") or auth_response.get("jwt")
+        tab_login, tab_signup = st.tabs(["🔐 ENTRAR (LOGIN)", "✨ CRIAR CONTA (CADASTRO)"])
 
-                            if not token:
-                                st.error("Erro na autenticação: token não retornado pelo servidor.")
-                            else:
-                                st.session_state["token"] = token
-                                st.success("Login realizado com sucesso!")
-                                st.rerun()
-                    except requests.RequestException as exc:
-                        st.error(f"Falha no login: {extract_error_message(exc)}")
+        # --- TAB LOGIN ---
+        with tab_login:
+            st.markdown("""
+            <div style="margin: 1rem 0 1.2rem 0;">
+                <h3 style="color: #FEF08A; font-size: 1.45rem; font-weight: 800; margin: 0;">🔐 Acessar Minha Conta</h3>
+                <p style="color: #94A3B8; font-size: 0.98rem; margin: 4px 0 0 0;">Informe seu e-mail e senha cadastrados para entrar:</p>
+            </div>
+            """, unsafe_allow_html=True)
 
-    # --- TAB SIGNUP ---
-    with tab_signup:
-        st.subheader("Cadastre-se no EduTrack AI")
-        with st.form("form_signup"):
-            signup_name = st.text_input("Nome Completo", placeholder="Seu nome completo", key="input_signup_name")
-            signup_email = st.text_input("E-mail", placeholder="seu-email@exemplo.com", key="input_signup_email")
-            signup_password = st.text_input("Senha", type="password", placeholder="Crie uma senha segura", key="input_signup_password")
-            submit_signup = st.form_submit_button("Criar Conta", type="primary")
+            with st.form("form_login"):
+                login_email = st.text_input("📧 Seu E-mail", placeholder="seu-email@exemplo.com", key="input_login_email")
+                login_password = st.text_input("🔑 Sua Senha", type="password", placeholder="Digite sua senha", key="input_login_password")
+                submit_login = st.form_submit_button("🚀 ENTRAR NA PLATAFORMA", type="primary", use_container_width=True)
 
-            if submit_signup:
-                if not signup_name or not signup_email or not signup_password:
-                    st.warning("Por favor, preencha todos os campos para se cadastrar.")
-                else:
-                    try:
-                        with st.spinner("Criando conta..."):
-                            signup_response = api_signup(signup_name, signup_email, signup_password)
-                            token = signup_response.get("authToken") or signup_response.get("token") or signup_response.get("jwt")
+                if submit_login:
+                    if not login_email or not login_password:
+                        st.warning("⚠️ Por favor, preencha o e-mail e a senha.")
+                    else:
+                        try:
+                            with st.spinner("Autenticando no Xano..."):
+                                auth_response = api_login(login_email, login_password)
+                                token = auth_response.get("authToken") or auth_response.get("token") or auth_response.get("jwt")
 
-                            if token:
-                                st.session_state["token"] = token
-                                st.success("✅ Cadastro realizado com sucesso! Conectando à sua conta...")
-                                st.rerun()
-                            else:
-                                st.success("✅ Cadastro realizado com sucesso! Vá para a aba 'Entrar' e faça login.")
-                    except requests.RequestException as exc:
-                        st.error(f"Erro no cadastro: {extract_error_message(exc)}")
+                                if not token:
+                                    st.error("❌ Falha na autenticação: token não retornado pelo servidor.")
+                                else:
+                                    st.session_state["token"] = token
+                                    st.success("✅ Login realizado com sucesso!")
+                                    st.rerun()
+                        except requests.RequestException as exc:
+                            st.error(f"❌ Falha no login: {extract_error_message(exc)}")
+
+        # --- TAB SIGNUP ---
+        with tab_signup:
+            st.markdown("""
+            <div style="margin: 1rem 0 1.2rem 0;">
+                <h3 style="color: #FEF08A; font-size: 1.45rem; font-weight: 800; margin: 0;">✨ Criar Nova Conta</h3>
+                <p style="color: #94A3B8; font-size: 0.98rem; margin: 4px 0 0 0;">Preencha os dados abaixo para registrar-se no EduTrack AI:</p>
+            </div>
+            """, unsafe_allow_html=True)
+
+            with st.form("form_signup"):
+                signup_name = st.text_input("👤 Nome Completo", placeholder="Seu nome completo", key="input_signup_name")
+                signup_email = st.text_input("📧 E-mail para Cadastro", placeholder="seu-email@exemplo.com", key="input_signup_email")
+                signup_password = st.text_input("🔒 Senha de Acesso", type="password", placeholder="Crie uma senha segura", key="input_signup_password")
+                submit_signup = st.form_submit_button("✨ FINALIZAR CADASTRO", type="primary", use_container_width=True)
+
+                if submit_signup:
+                    if not signup_name or not signup_email or not signup_password:
+                        st.warning("⚠️ Por favor, preencha todos os campos para se cadastrar.")
+                    else:
+                        try:
+                            with st.spinner("Criando conta no Xano..."):
+                                signup_response = api_signup(signup_name, signup_email, signup_password)
+                                token = signup_response.get("authToken") or signup_response.get("token") or signup_response.get("jwt")
+
+                                if token:
+                                    st.session_state["token"] = token
+                                    st.success("✅ Cadastro realizado com sucesso! Conectando à sua conta...")
+                                    st.rerun()
+                                else:
+                                    st.success("✅ Cadastro realizado com sucesso! Vá para a aba 'Entrar' e faça login.")
+                        except requests.RequestException as exc:
+                            st.error(f"❌ Erro no cadastro: {extract_error_message(exc)}")
 

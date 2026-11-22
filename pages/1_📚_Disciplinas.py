@@ -15,7 +15,7 @@ from dotenv import load_dotenv
 # Ensure root directory is in sys.path for utils import
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from utils.pdf_generator import build_pdf_document
-from utils.xano_client import get_endpoint_urls, parse_xano_error, request_with_fallback
+from utils.xano_client import get_endpoint_urls, parse_xano_error, request_with_fallback, get_config_source_name
 from utils.ui_theme import apply_custom_theme
 
 load_dotenv()
@@ -326,7 +326,7 @@ with tab_config:
     st.subheader("⚙️ Diagnóstico de Conexão com o Xano")
     st.caption("Verifique como as URLs e o token estão configurados na sua aplicação.")
     
-    config_source = "Streamlit Secrets (.streamlit/secrets.toml)" if hasattr(st, "secrets") and "XANO_BASE_URL" in st.secrets else "Variáveis de Ambiente (.env) / Fallback"
+    config_source = get_config_source_name()
     st.markdown(f"**Origem das Configurações:** `{config_source}`")
     st.markdown(f"**Host Xano:** `{urls['host']}`")
     st.markdown(f"**URL do Grupo de Autenticação:** `{urls['auth']}`")

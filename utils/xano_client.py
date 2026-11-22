@@ -13,19 +13,41 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
+def is_secrets_available() -> bool:
+    """
+    Safely check if Streamlit secrets are configured and accessible,
+    preventing StreamlitSecretNotFoundError when secrets.toml does not exist.
+    """
+    try:
+        import streamlit as st
+        return bool(hasattr(st, "secrets") and st.secrets and len(st.secrets) > 0)
+    except Exception:
+        return False
+
+
+def get_config_source_name() -> str:
+    """Return friendly name of current active configuration source."""
+    return (
+        "Streamlit Secrets (.streamlit/secrets.toml)"
+        if is_secrets_available()
+        else "Variáveis de Ambiente (.env) / Fallback"
+    )
+
+
 def get_config_value(key: str, default: str = "") -> str:
     """
     Retrieve configuration value prioritizing Streamlit secrets (st.secrets),
     with graceful fallback to environment variables (os.getenv) and default value.
     """
-    try:
-        import streamlit as st
-        if hasattr(st, "secrets") and key in st.secrets:
-            val = st.secrets[key]
-            if val is not None and str(val).strip():
-                return str(val).strip()
-    except Exception:
-        pass
+    if is_secrets_available():
+        try:
+            import streamlit as st
+            if key in st.secrets:
+                val = st.secrets[key]
+                if val is not None and str(val).strip():
+                    return str(val).strip()
+        except Exception:
+            pass
 
     env_val = os.getenv(key)
     if env_val is not None and str(env_val).strip():
