@@ -121,13 +121,13 @@ else:
     with col_center:
         st.markdown("""
         <div style="text-align: center; margin-bottom: 2rem;">
-            <div style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 20px; border-radius: 9999px; background: rgba(245, 158, 11, 0.16); border: 1.5px solid #F59E0B; color: #FDE047; font-weight: 800; font-size: 0.95rem; margin-bottom: 14px; letter-spacing: 1px;">
+            <div style="display: inline-flex; align-items: center; gap: 8px; padding: 6px 20px; border-radius: 9999px; background: rgba(71, 201, 176, 0.12); border: 1px solid rgba(103, 211, 197, 0.55); color: #A7F3E9; font-weight: 700; font-size: 0.95rem; margin-bottom: 14px; letter-spacing: 1px;">
                 <span>✨</span> AUTENTICAÇÃO EDUTRACK AI
             </div>
-            <h1 style="font-size: 2.8rem; font-weight: 900; background: linear-gradient(135deg, #FFFFFF 0%, #FDE047 30%, #F59E0B 70%, #EA580C 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; filter: drop-shadow(0 0 18px rgba(245, 158, 11, 0.55));">
+            <h1 style="font-size: 2.8rem; font-weight: 800; background: linear-gradient(120deg, #F8FAFC 0%, #C8E7E3 55%, #67D3C5 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin: 0; filter: drop-shadow(0 6px 18px rgba(2, 8, 23, 0.3));">
                 Acesse sua Conta
             </h1>
-            <p style="color: #94A3B8; font-size: 1.15rem; margin-top: 10px; font-weight: 500;">
+            <p style="color: #A9B9CC; font-size: 1.15rem; margin-top: 10px; font-weight: 500;">
                 Faça login ou crie sua conta para gerenciar notas, disciplinas e tarefas acadêmicas.
             </p>
         </div>
@@ -139,8 +139,8 @@ else:
         with tab_login:
             st.markdown("""
             <div style="margin: 1rem 0 1.2rem 0;">
-                <h3 style="color: #FEF08A; font-size: 1.45rem; font-weight: 800; margin: 0;">🔐 Acessar Minha Conta</h3>
-                <p style="color: #94A3B8; font-size: 0.98rem; margin: 4px 0 0 0;">Informe seu e-mail e senha cadastrados para entrar:</p>
+                <h3 style="color: #A7F3E9; font-size: 1.45rem; font-weight: 750; margin: 0;">🔐 Acessar Minha Conta</h3>
+                <p style="color: #A9B9CC; font-size: 0.98rem; margin: 4px 0 0 0;">Informe seu e-mail e senha cadastrados para entrar:</p>
             </div>
             """, unsafe_allow_html=True)
 
@@ -171,8 +171,8 @@ else:
         with tab_signup:
             st.markdown("""
             <div style="margin: 1rem 0 1.2rem 0;">
-                <h3 style="color: #FEF08A; font-size: 1.45rem; font-weight: 800; margin: 0;">✨ Criar Nova Conta</h3>
-                <p style="color: #94A3B8; font-size: 0.98rem; margin: 4px 0 0 0;">Preencha os dados abaixo para registrar-se no EduTrack AI:</p>
+                <h3 style="color: #A7F3E9; font-size: 1.45rem; font-weight: 750; margin: 0;">✨ Criar Nova Conta</h3>
+                <p style="color: #A9B9CC; font-size: 0.98rem; margin: 4px 0 0 0;">Preencha os dados abaixo para registrar-se no EduTrack AI:</p>
             </div>
             """, unsafe_allow_html=True)
 

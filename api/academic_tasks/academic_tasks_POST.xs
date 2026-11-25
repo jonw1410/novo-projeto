@@ -1,25 +1,26 @@
 // Add academic_tasks record
 query academic_tasks verb=POST {
   api_group = "academic_Tasks"
+  auth = "user"
 
   input {
-    dblink {
-      table = "academic_tasks"
-    }
+    text title filters=trim
+    text description filters=trim
+    date due_date
+    text status filters=trim
+    int subject_id
   }
 
   stack {
     db.add academic_tasks {
-      enforce_hidden_fields = false
       data = {
+        created_at : "now"
         title      : $input.title
         description: $input.description
         due_date   : $input.due_date
         status     : $input.status
         subject_id : $input.subject_id
-        user_id    : $input.user_id
-        created_at : $input.created_at
-        updated_at : $input.updated_at
+        user_id    : $auth.id
       }
     } as $model
   }
