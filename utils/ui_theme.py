@@ -1,89 +1,102 @@
 """
 EduTrack AI - UI Theme & Visual Styling Module
-Theme: "Dark Golden Fire" (Escuro Dourado Fogo)
-Combines deep luxury obsidian dark with glowing molten gold and fierce fire flame accents.
+Theme: "Midnight Navy, Slate & Teal"
+Fundo principal e lateral em azul-marinho, superfícies em ardósia e destaques teal.
 """
 
 import base64
-import os
 import streamlit as st
 
-_cached_bg_b64: str = ""
+_WAVE_LINES_SVG = """<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="100%" height="100%" preserveAspectRatio="none">
+  <defs>
+    <linearGradient id="wave1" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FDE047" stop-opacity="0.0"/>
+      <stop offset="25%" stop-color="#FDE047" stop-opacity="0.25"/>
+      <stop offset="70%" stop-color="#FEF08A" stop-opacity="0.30"/>
+      <stop offset="100%" stop-color="#EAB308" stop-opacity="0.0"/>
+    </linearGradient>
+    <linearGradient id="wave2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.0"/>
+      <stop offset="30%" stop-color="#FEF9C3" stop-opacity="0.20"/>
+      <stop offset="70%" stop-color="#FDE047" stop-opacity="0.24"/>
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.0"/>
+    </linearGradient>
+    <linearGradient id="wave3" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F59E0B" stop-opacity="0.0"/>
+      <stop offset="35%" stop-color="#FEF08A" stop-opacity="0.22"/>
+      <stop offset="75%" stop-color="#FDE047" stop-opacity="0.26"/>
+      <stop offset="100%" stop-color="#F59E0B" stop-opacity="0.0"/>
+    </linearGradient>
+  </defs>
+  <!-- Ondas em Linha Superiores -->
+  <path d="M-100,140 C320,40 640,220 1050,110 C1460,0 1720,160 2020,100" fill="none" stroke="url(#wave1)" stroke-width="2"/>
+  <path d="M-100,190 C340,90 660,270 1070,160 C1480,50 1740,210 2020,150" fill="none" stroke="url(#wave2)" stroke-width="1.8"/>
+  <path d="M-100,240 C360,140 680,320 1090,210 C1500,100 1760,260 2020,200" fill="none" stroke="url(#wave1)" stroke-width="1.4" stroke-dasharray="10 6"/>
+  <path d="M-100,290 C380,190 700,370 1110,260 C1520,150 1780,310 2020,250" fill="none" stroke="url(#wave3)" stroke-width="1.6"/>
+  <path d="M-100,340 C400,240 720,420 1130,310 C1540,200 1800,360 2020,300" fill="none" stroke="url(#wave2)" stroke-width="1.2"/>
+  <path d="M-100,390 C420,290 740,470 1150,360 C1560,250 1820,410 2020,350" fill="none" stroke="url(#wave1)" stroke-width="1.0" stroke-dasharray="6 8"/>
+
+  <!-- Ondas em Linha Inferiores -->
+  <path d="M-100,660 C300,500 720,820 1180,640 C1540,500 1780,700 2020,620" fill="none" stroke="url(#wave2)" stroke-width="2"/>
+  <path d="M-100,710 C320,550 740,870 1200,690 C1560,550 1800,750 2020,670" fill="none" stroke="url(#wave1)" stroke-width="1.8"/>
+  <path d="M-100,760 C340,600 760,920 1220,740 C1580,600 1820,800 2020,720" fill="none" stroke="url(#wave3)" stroke-width="1.4" stroke-dasharray="12 6"/>
+  <path d="M-100,810 C360,650 780,970 1240,790 C1600,650 1840,850 2020,770" fill="none" stroke="url(#wave2)" stroke-width="1.6"/>
+  <path d="M-100,860 C380,700 800,1020 1260,840 C1620,700 1860,900 2020,820" fill="none" stroke="url(#wave1)" stroke-width="1.2"/>
+  <path d="M-100,910 C400,750 820,1070 1280,890 C1640,750 1880,950 2020,870" fill="none" stroke="url(#wave3)" stroke-width="1.0" stroke-dasharray="8 6"/>
+</svg>"""
+
+_WAVE_LINES_B64 = base64.b64encode(_WAVE_LINES_SVG.encode("utf-8")).decode("utf-8")
 
 
 def get_study_background_b64() -> str:
-    """Load and cache the base64-encoded educational study background image."""
-    global _cached_bg_b64
-    if _cached_bg_b64:
-        return _cached_bg_b64
-
-    possible_paths = [
-        os.path.join(os.path.dirname(__file__), "..", "assets", "study_background.jpg"),
-        os.path.join(os.getcwd(), "assets", "study_background.jpg"),
-    ]
-    for p in possible_paths:
-        if os.path.exists(p):
-            try:
-                with open(p, "rb") as f:
-                    _cached_bg_b64 = base64.b64encode(f.read()).decode("utf-8")
-                    return _cached_bg_b64
-            except Exception:
-                pass
+    """Retained for backward compatibility; returns empty string."""
     return ""
 
 
 def apply_custom_theme() -> None:
-    """Inject the Dark Golden Fire theme into the active Streamlit page."""
-    bg_b64 = get_study_background_b64()
-    if bg_b64:
-        st.markdown(
-            f"""
-            <style>
-            /* Educational Study Art Background Watermark */
-            .stApp::before {{
-                content: "";
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100vw;
-                height: 100vh;
-                background-image: url("data:image/jpeg;base64,{bg_b64}");
-                background-size: cover;
-                background-position: center center;
-                background-repeat: no-repeat;
-                opacity: 0.28;
-                pointer-events: none;
-                z-index: 0;
-                filter: contrast(1.15) brightness(1.22);
-            }}
-
-            .main .block-container {{
-                position: relative;
-                z-index: 1;
-            }}
-
-            header[data-testid="stHeader"] {{
-                background: transparent !important;
-            }}
-            </style>
-            """,
-            unsafe_allow_html=True,
-        )
-
+    """Apply the EduTrack midnight navy and teal theme to the active Streamlit page."""
     custom_css = """
     <style>
     /* ========================================================
-       EduTrack AI - Dark Golden Fire Theme (Lighter Background)
+       EduTrack AI - Royal Sapphire & Midnight Navy Theme
        ======================================================== */
 
-    /* Global Background: Lighter Luxury Slate with Molten Gold & Fire Aura */
+    /* Ondas em Linha Douradas e Celestiais no Fundo */
+    .stApp::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-image: url("data:image/svg+xml;base64,__WAVE_LINES_B64__");
+        background-size: cover;
+        background-position: center center;
+        background-repeat: no-repeat;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0.85;
+    }
+
+    /* Global Background: Harmonia Perfeita com a Lateral #0B1F3A (Deep Midnight Navy) */
     .stApp {
-        background: radial-gradient(circle at 12% 15%, rgba(245, 158, 11, 0.26) 0%, transparent 48%),
-                    radial-gradient(circle at 88% 18%, rgba(234, 88, 12, 0.22) 0%, transparent 48%),
-                    radial-gradient(circle at 50% 85%, rgba(251, 191, 36, 0.18) 0%, transparent 55%),
-                    linear-gradient(180deg, #161824 0%, #212433 50%, #191B26 100%) !important;
+        background-color: #0D1B32 !important;
+        background-image:
+            radial-gradient(circle at 18% 15%, rgba(253, 224, 71, 0.08) 0%, transparent 45%),
+            radial-gradient(circle at 82% 22%, rgba(56, 189, 248, 0.10) 0%, transparent 45%),
+            radial-gradient(circle at 50% 85%, rgba(11, 31, 58, 0.40) 0%, transparent 55%),
+            linear-gradient(180deg, #0A1629 0%, #0D1B32 50%, #10223E 100%) !important;
         background-attachment: fixed !important;
         color: #F8FAFC !important;
+    }
+
+    .main .block-container {
+        position: relative;
+        z-index: 1;
+    }
+
+    header[data-testid="stHeader"] {
+        background: transparent !important;
     }
 
     /* General typography contrast on dark canvas */
@@ -150,29 +163,34 @@ def apply_custom_theme() -> None:
         letter-spacing: 0.9px !important;
     }
 
-    /* Primary Buttons: Pure Fiery Gold (Molten Blaze & Burning Flame) */
+    /* Primary Buttons & Botão Entrar: Dourado Elegante, Limpo & Profissional */
     button[kind="primary"], 
     .stButton > button[type="primary"], 
-    div.stButton > button[kind="primary"] {
-        background: linear-gradient(135deg, #B91C1C 0%, #DC2626 25%, #EA580C 65%, #F59E0B 100%) !important;
-        color: #FFFFFF !important;
-        font-weight: 900 !important;
-        border: none !important;
-        border-radius: 12px !important;
-        padding: 0.6rem 1.6rem !important;
-        box-shadow: 0 4px 22px 0 rgba(245, 158, 11, 0.60), 0 0 14px rgba(234, 88, 12, 0.40) !important;
-        transition: all 0.25s ease-in-out !important;
+    div.stButton > button[kind="primary"],
+    [data-testid="stFormSubmitButton"] > button {
+        background: linear-gradient(180deg, #FBBF24 0%, #F59E0B 100%) !important;
+        color: #0A0E1A !important;
+        font-weight: 800 !important;
+        font-size: 1.05rem !important;
+        border: 1px solid #D97706 !important;
+        border-radius: 10px !important;
+        padding: 0.65rem 1.8rem !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.28), 0 1px 2px rgba(0, 0, 0, 0.16) !important;
+        transition: all 0.2s ease-in-out !important;
         text-transform: uppercase !important;
-        letter-spacing: 0.6px !important;
+        letter-spacing: 0.5px !important;
+        text-shadow: none !important;
     }
 
     button[kind="primary"]:hover, 
     .stButton > button[type="primary"]:hover, 
-    div.stButton > button[kind="primary"]:hover {
-        transform: translateY(-2px) scale(1.02) !important;
-        box-shadow: 0 6px 32px 0 rgba(245, 158, 11, 0.85), 0 0 25px rgba(251, 191, 36, 0.7) !important;
-        background: linear-gradient(135deg, #991B1B 0%, #B91C1C 25%, #DC2626 60%, #EA580C 100%) !important;
-        color: #FFFFFF !important;
+    div.stButton > button[kind="primary"]:hover,
+    [data-testid="stFormSubmitButton"] > button:hover {
+        transform: translateY(-1px) scale(1.01) !important;
+        background: linear-gradient(180deg, #FCD34D 0%, #F59E0B 100%) !important;
+        color: #000000 !important;
+        border-color: #F59E0B !important;
+        box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35), 0 2px 4px rgba(0, 0, 0, 0.2) !important;
     }
 
     /* Secondary Buttons: Dark Obsidian with Glowing Golden Outline */
@@ -270,13 +288,29 @@ def apply_custom_theme() -> None:
     }
 
     [data-testid="stForm"] button[kind="primary"],
-    [data-testid="stForm"] .stButton > button {
-        font-size: 1.18rem !important;
-        font-weight: 900 !important;
-        padding: 0.85rem 2rem !important;
-        border-radius: 14px !important;
-        letter-spacing: 0.8px !important;
+    [data-testid="stForm"] .stButton > button,
+    [data-testid="stFormSubmitButton"] > button {
+        background: linear-gradient(180deg, #FBBF24 0%, #F59E0B 100%) !important;
+        color: #0A0E1A !important;
+        font-size: 1.15rem !important;
+        font-weight: 800 !important;
+        padding: 0.85rem 2.2rem !important;
+        border-radius: 12px !important;
+        border: 1px solid #D97706 !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35), 0 2px 4px rgba(0, 0, 0, 0.2) !important;
+        letter-spacing: 0.6px !important;
         margin-top: 1rem !important;
+        text-shadow: none !important;
+    }
+
+    [data-testid="stForm"] button[kind="primary"]:hover,
+    [data-testid="stForm"] .stButton > button:hover,
+    [data-testid="stFormSubmitButton"] > button:hover {
+        transform: translateY(-1px) scale(1.01) !important;
+        box-shadow: 0 6px 18px rgba(245, 158, 11, 0.40), 0 2px 6px rgba(0, 0, 0, 0.25) !important;
+        background: linear-gradient(180deg, #FCD34D 0%, #F59E0B 100%) !important;
+        color: #000000 !important;
+        border-color: #F59E0B !important;
     }
 
     /* Expanders: Dark Obsidian with Fiery Gold Edges */
@@ -334,28 +368,29 @@ def apply_custom_theme() -> None:
     }
 
     /* ========================================================
-       Sidebar: Dark Obsidian with Glowing Fiery Gold
+       Sidebar: Cor #0B1F3A, Botões #1C1C1E e Destaque Dourado
        ======================================================== */
     [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #10121B 0%, #181B27 50%, #151622 100%) !important;
-        border-right: 2px solid #F59E0B !important;
-        box-shadow: 4px 0 26px rgba(245, 158, 11, 0.30) !important;
+        background: linear-gradient(180deg, #071528 0%, #0B1F3A 50%, #061222 100%) !important;
+        background-color: #0B1F3A !important;
+        border-right: 2px solid rgba(253, 224, 71, 0.45) !important;
+        box-shadow: 4px 0 28px rgba(7, 21, 39, 0.85) !important;
     }
 
     [data-testid="stSidebar"] * {
-        color: #E2E8F0 !important;
+        color: #FDE047 !important;
     }
 
     [data-testid="stSidebar"] h1, 
     [data-testid="stSidebar"] h2, 
     [data-testid="stSidebar"] h3 {
-        background: linear-gradient(135deg, #FFFFFF 0%, #FDE047 30%, #F59E0B 70%, #EA580C 100%) !important;
+        background: linear-gradient(135deg, #FFFFFF 0%, #FEF9C3 20%, #FDE047 60%, #F59E0B 100%) !important;
         -webkit-background-clip: text !important;
         -webkit-text-fill-color: transparent !important;
         font-size: 1.35rem !important;
         font-weight: 900 !important;
         letter-spacing: 0.8px !important;
-        filter: drop-shadow(0 0 14px rgba(245, 158, 11, 0.6));
+        filter: drop-shadow(0 0 16px rgba(253, 224, 71, 0.60));
         margin-bottom: 1.2rem !important;
     }
 
@@ -366,8 +401,9 @@ def apply_custom_theme() -> None:
     }
 
     [data-testid="stSidebarNav"] a {
-        background: rgba(18, 18, 26, 0.9) !important;
-        border: 1.5px solid rgba(245, 158, 11, 0.35) !important;
+        background: #1C1C1E !important;
+        background-color: #1C1C1E !important;
+        border: 1.5px solid rgba(253, 224, 71, 0.40) !important;
         border-radius: 12px !important;
         margin: 8px 0 !important;
         padding: 12px 16px !important;
@@ -375,89 +411,338 @@ def apply_custom_theme() -> None:
         display: flex !important;
         align-items: center !important;
         gap: 12px !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45) !important;
     }
 
     [data-testid="stSidebarNav"] a:hover {
-        background: rgba(245, 158, 11, 0.22) !important;
-        border-color: #FBBF24 !important;
-        box-shadow: 0 0 20px rgba(245, 158, 11, 0.5) !important;
+        background: #2C2C2E !important;
+        background-color: #2C2C2E !important;
+        border-color: #FDE047 !important;
+        box-shadow: 0 0 22px rgba(253, 224, 71, 0.45) !important;
         transform: translateX(4px) scale(1.02) !important;
     }
 
     [data-testid="stSidebarNav"] span {
-        color: #F8FAFC !important;
+        color: #FDE047 !important;
         font-size: 1.15rem !important;
         font-weight: 800 !important;
         letter-spacing: 0.4px !important;
+        text-shadow: 0 0 10px rgba(253, 224, 71, 0.45) !important;
     }
 
     [data-testid="stSidebarNav"] svg {
         width: 1.45rem !important;
         height: 1.45rem !important;
-        color: #FBBF24 !important;
-        filter: drop-shadow(0 0 8px rgba(245, 158, 11, 0.6)) !important;
+        color: #FDE047 !important;
+        filter: drop-shadow(0 0 8px rgba(253, 224, 71, 0.6)) !important;
     }
 
     [data-testid="stSidebarNav"] a:hover span {
-        color: #FEF08A !important;
-        text-shadow: 0 0 12px rgba(251, 191, 36, 0.8) !important;
+        color: #FFFFFF !important;
+        text-shadow: 0 0 14px rgba(253, 224, 71, 0.95) !important;
+    }
+
+    [data-testid="stSidebarNav"] a:hover svg {
+        color: #FEF9C3 !important;
+        filter: drop-shadow(0 0 12px rgba(253, 224, 71, 0.95)) !important;
     }
 
     [data-testid="stSidebarNav"] a[aria-current="page"] {
-        background: linear-gradient(135deg, rgba(245, 158, 11, 0.38) 0%, rgba(234, 88, 12, 0.28) 100%) !important;
-        border: 2px solid #F59E0B !important;
-        border-left: 6px solid #F59E0B !important;
-        box-shadow: 0 0 24px rgba(245, 158, 11, 0.55), inset 0 0 12px rgba(245, 158, 11, 0.2) !important;
+        background: linear-gradient(135deg, rgba(253, 224, 71, 0.30) 0%, #1C1C1E 100%) !important;
+        border: 2px solid #FDE047 !important;
+        border-left: 6px solid #FDE047 !important;
+        box-shadow: 0 0 26px rgba(253, 224, 71, 0.55), inset 0 0 10px rgba(253, 224, 71, 0.20) !important;
         transform: translateX(2px) !important;
     }
 
     [data-testid="stSidebarNav"] a[aria-current="page"] span {
-        color: #FEF08A !important;
+        color: #FFFFFF !important;
         font-size: 1.18rem !important;
         font-weight: 900 !important;
-        text-shadow: 0 0 10px rgba(251, 191, 36, 0.8) !important;
+        text-shadow: 0 0 14px rgba(253, 224, 71, 0.95) !important;
+    }
+
+    [data-testid="stSidebarNav"] a[aria-current="page"] svg {
+        color: #FFFFFF !important;
+        filter: drop-shadow(0 0 12px rgba(253, 224, 71, 1.0)) !important;
     }
 
     /* Radio buttons de navegação na Sidebar (Dashboard / app.py) */
     [data-testid="stSidebar"] div[role="radiogroup"] label {
-        background: rgba(18, 18, 26, 0.9) !important;
+        background: #1C1C1E !important;
+        background-color: #1C1C1E !important;
         border-radius: 12px !important;
         padding: 12px 18px !important;
         margin-bottom: 10px !important;
-        border: 1.5px solid rgba(245, 158, 11, 0.35) !important;
+        border: 1.5px solid rgba(253, 224, 71, 0.40) !important;
         transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1) !important;
         cursor: pointer !important;
         display: flex !important;
         align-items: center !important;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.45) !important;
     }
 
     [data-testid="stSidebar"] div[role="radiogroup"] label:hover {
-        background: rgba(245, 158, 11, 0.22) !important;
-        border-color: #FBBF24 !important;
-        box-shadow: 0 0 18px rgba(245, 158, 11, 0.45) !important;
+        background: #2C2C2E !important;
+        background-color: #2C2C2E !important;
+        border-color: #FDE047 !important;
+        box-shadow: 0 0 20px rgba(253, 224, 71, 0.45) !important;
         transform: translateX(4px) scale(1.02) !important;
     }
 
     [data-testid="stSidebar"] div[role="radiogroup"] label span {
-        color: #F8FAFC !important;
+        color: #FDE047 !important;
         font-size: 1.15rem !important;
         font-weight: 800 !important;
         letter-spacing: 0.4px !important;
+        text-shadow: 0 0 10px rgba(253, 224, 71, 0.45) !important;
+    }
+
+    [data-testid="stSidebar"] div[role="radiogroup"] label:hover span {
+        color: #FFFFFF !important;
+        text-shadow: 0 0 14px rgba(253, 224, 71, 0.95) !important;
     }
 
     [data-testid="stSidebar"] div[role="radiogroup"] label[data-checked="true"] {
-        background: linear-gradient(135deg, rgba(245, 158, 11, 0.40) 0%, rgba(234, 88, 12, 0.28) 100%) !important;
-        border: 2px solid #F59E0B !important;
-        border-left: 6px solid #F59E0B !important;
-        box-shadow: 0 0 24px rgba(245, 158, 11, 0.55), inset 0 0 12px rgba(245, 158, 11, 0.2) !important;
+        background: linear-gradient(135deg, rgba(253, 224, 71, 0.30) 0%, #1C1C1E 100%) !important;
+        border: 2px solid #FDE047 !important;
+        border-left: 6px solid #FDE047 !important;
+        box-shadow: 0 0 26px rgba(253, 224, 71, 0.55), inset 0 0 10px rgba(253, 224, 71, 0.20) !important;
     }
 
     [data-testid="stSidebar"] div[role="radiogroup"] label[data-checked="true"] span {
-        color: #FEF08A !important;
+        color: #FFFFFF !important;
         font-size: 1.18rem !important;
         font-weight: 900 !important;
-        text-shadow: 0 0 12px rgba(251, 191, 36, 0.8) !important;
+        text-shadow: 0 0 14px rgba(253, 224, 71, 0.95) !important;
+    }
+
+    /* Unified EduTrack palette: midnight navy, slate surfaces, and restrained teal. */
+    .stApp {
+        background-color: #0B1220 !important;
+        background-image:
+            radial-gradient(circle at 16% 12%, rgba(71, 201, 176, 0.07) 0%, transparent 42%),
+            radial-gradient(circle at 84% 24%, rgba(56, 189, 248, 0.06) 0%, transparent 44%),
+            linear-gradient(180deg, #0A1423 0%, #0B1220 58%, #0D1929 100%) !important;
+        color: #E6EDF7 !important;
+    }
+
+    .stApp::before {
+        opacity: 0.2;
+    }
+
+    .stApp p, .stApp span, .stApp label, .stApp div {
+        color: #D7E1EC;
+    }
+
+    h1 {
+        background: linear-gradient(120deg, #F8FAFC 0%, #C8E7E3 62%, #67D3C5 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        filter: none !important;
+        font-weight: 800 !important;
+    }
+
+    h2, h3, h4, h5, h6 {
+        color: #A7F3E9 !important;
+        text-shadow: none !important;
+    }
+
+    [data-testid="stMetric"] {
+        background: linear-gradient(145deg, #14243A 0%, #101B2D 100%) !important;
+        border: 1px solid #263B52 !important;
+        border-left: 4px solid #47C9B0 !important;
+        border-radius: 14px !important;
+        box-shadow: 0 8px 24px rgba(2, 8, 23, 0.25) !important;
+    }
+
+    [data-testid="stMetric"]:hover {
+        transform: translateY(-2px) !important;
+        border-color: #397B79 !important;
+        box-shadow: 0 12px 28px rgba(2, 8, 23, 0.34) !important;
+    }
+
+    [data-testid="stMetricValue"] {
+        color: #F1F5F9 !important;
+        background: none !important;
+        -webkit-text-fill-color: #F1F5F9 !important;
+        filter: none !important;
+    }
+
+    [data-testid="stMetricLabel"] {
+        color: #A9B9CC !important;
+    }
+
+    button[kind="primary"],
+    .stButton > button[type="primary"],
+    div.stButton > button[kind="primary"],
+    [data-testid="stFormSubmitButton"] > button {
+        background: #0F766E !important;
+        color: #FFFFFF !important;
+        border: 1px solid #16877D !important;
+        box-shadow: 0 4px 12px rgba(2, 8, 23, 0.24) !important;
+        text-transform: none !important;
+    }
+
+    button[kind="primary"]:hover,
+    .stButton > button[type="primary"]:hover,
+    div.stButton > button[kind="primary"]:hover,
+    [data-testid="stFormSubmitButton"] > button:hover {
+        background: #0D9488 !important;
+        border-color: #2CB6A5 !important;
+        box-shadow: 0 6px 16px rgba(15, 118, 110, 0.24) !important;
+    }
+
+    button[kind="secondary"],
+    .stButton > button[type="secondary"] {
+        background: #14243A !important;
+        color: #CDECE9 !important;
+        border: 1px solid #345166 !important;
+        box-shadow: none !important;
+    }
+
+    button[kind="secondary"]:hover,
+    .stButton > button[type="secondary"]:hover {
+        background: #1A3048 !important;
+        border-color: #47C9B0 !important;
+        color: #F1F5F9 !important;
+        box-shadow: 0 4px 14px rgba(2, 8, 23, 0.22) !important;
+    }
+
+    .stDownloadButton > button {
+        background: #0F766E !important;
+        color: #FFFFFF !important;
+        box-shadow: 0 4px 14px rgba(2, 8, 23, 0.25) !important;
+        text-transform: none !important;
+    }
+
+    .stDownloadButton > button:hover {
+        background: #0D9488 !important;
+        box-shadow: 0 6px 18px rgba(15, 118, 110, 0.24) !important;
+    }
+
+    .stTabs [data-baseweb="tab-list"] {
+        gap: 6px !important;
+        background: #101B2D !important;
+        border: 1px solid #263B52 !important;
+        box-shadow: none !important;
+        border-radius: 12px !important;
+    }
+
+    .stTabs [data-baseweb="tab"] {
+        color: #A9B9CC !important;
+    }
+
+    .stTabs [data-baseweb="tab"]:hover,
+    .stTabs [aria-selected="true"] {
+        background: #19333F !important;
+        color: #A7F3E9 !important;
+        border: 1px solid #397B79 !important;
+        box-shadow: none !important;
+    }
+
+    [data-testid="stForm"] {
+        background: linear-gradient(160deg, #14243A 0%, #101B2D 100%) !important;
+        border: 1px solid #2B4258 !important;
+        border-radius: 16px !important;
+        box-shadow: 0 12px 32px rgba(2, 8, 23, 0.3) !important;
+    }
+
+    [data-testid="stForm"] label,
+    .stTextInput label {
+        color: #B8DCD8 !important;
+    }
+
+    [data-testid="stExpander"] {
+        background: #111C2E !important;
+        border: 1px solid #293F55 !important;
+        box-shadow: 0 4px 16px rgba(2, 8, 23, 0.2) !important;
+    }
+
+    [data-testid="stExpander"]:hover {
+        border-color: #397B79 !important;
+        box-shadow: 0 6px 18px rgba(2, 8, 23, 0.24) !important;
+    }
+
+    .stAlert {
+        background: #14243A !important;
+        border: 1px solid #345166 !important;
+        border-radius: 12px !important;
+    }
+
+    .stTextInput > div > div > input,
+    .stNumberInput > div > div > input,
+    .stSelectbox > div > div,
+    textarea {
+        background-color: #0D1929 !important;
+        color: #E6EDF7 !important;
+        border: 1px solid #345166 !important;
+        border-radius: 10px !important;
+    }
+
+    .stTextInput > div > div > input:focus,
+    .stNumberInput > div > div > input:focus,
+    textarea:focus {
+        border-color: #47C9B0 !important;
+        box-shadow: 0 0 0 2px rgba(71, 201, 176, 0.2) !important;
+    }
+
+    [data-testid="stDataFrame"] {
+        background: #111C2E !important;
+        border: 1px solid #293F55 !important;
+        box-shadow: none !important;
+    }
+
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #0E1A2B 0%, #101D30 100%) !important;
+        border-right: 1px solid #263B52 !important;
+        box-shadow: 4px 0 20px rgba(2, 8, 23, 0.2) !important;
+    }
+
+    [data-testid="stSidebar"] * {
+        color: #D7E1EC !important;
+    }
+
+    [data-testid="stSidebar"] h1,
+    [data-testid="stSidebar"] h2,
+    [data-testid="stSidebar"] h3 {
+        color: #A7F3E9 !important;
+        background: none !important;
+        -webkit-text-fill-color: #A7F3E9 !important;
+        filter: none !important;
+    }
+
+    [data-testid="stSidebarNav"] a,
+    [data-testid="stSidebar"] div[role="radiogroup"] label {
+        background: #14243A !important;
+        border: 1px solid #263B52 !important;
+        border-radius: 10px !important;
+        box-shadow: none !important;
+    }
+
+    [data-testid="stSidebarNav"] a:hover,
+    [data-testid="stSidebar"] div[role="radiogroup"] label:hover {
+        background: #1A3048 !important;
+        border-color: #397B79 !important;
+        box-shadow: 0 4px 14px rgba(2, 8, 23, 0.22) !important;
+        transform: translateX(2px) !important;
+    }
+
+    [data-testid="stSidebarNav"] a[aria-current="page"],
+    [data-testid="stSidebar"] div[role="radiogroup"] label[data-checked="true"] {
+        background: #19333F !important;
+        border-color: #47C9B0 !important;
+        border-left: 3px solid #47C9B0 !important;
+        box-shadow: none !important;
+    }
+
+    [data-testid="stSidebarNav"] span,
+    [data-testid="stSidebarNav"] svg,
+    [data-testid="stSidebar"] div[role="radiogroup"] label span {
+        color: #CDECE9 !important;
+        text-shadow: none !important;
+        filter: none !important;
     }
     </style>
     """
-    st.markdown(custom_css, unsafe_allow_html=True)
+    st.markdown(custom_css.replace("__WAVE_LINES_B64__", _WAVE_LINES_B64), unsafe_allow_html=True)

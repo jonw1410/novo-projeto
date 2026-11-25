@@ -1,6 +1,6 @@
 """
 EduTrack AI - Main Application & Academic Dashboard
-Theme: Dark Golden Fire with Study Art Background
+Theme: Midnight Navy with Slate Surfaces and Teal Accents
 """
 
 import streamlit as st
@@ -12,14 +12,14 @@ from utils.xano_client import get_endpoint_urls, request_with_fallback
 st.set_page_config(page_title="EduTrack AI - Painel Acadêmico", page_icon="🎓", layout="wide")
 apply_custom_theme()
 
-# Header Principal Harmonizado
+# Header principal
 st.markdown("""
 <div style="margin-bottom: 1.5rem;">
-    <div style="display: inline-flex; align-items: center; gap: 8px; padding: 5px 16px; border-radius: 9999px; background: rgba(245, 158, 11, 0.16); border: 1.5px solid #F59E0B; color: #FDE047; font-weight: 800; font-size: 0.85rem; letter-spacing: 0.8px; margin-bottom: 10px;">
+    <div style="display: inline-flex; align-items: center; gap: 8px; padding: 5px 16px; border-radius: 9999px; background: rgba(71, 201, 176, 0.12); border: 1px solid rgba(103, 211, 197, 0.55); color: #A7F3E9; font-weight: 700; font-size: 0.85rem; letter-spacing: 0.8px; margin-bottom: 10px;">
         <span>🎓</span> AMBIENTE ACADÊMICO INTELIGENTE
     </div>
     <h1 style="margin: 0 0 6px 0;">🎓 EduTrack AI</h1>
-    <p style="color: #94A3B8; font-size: 1.1rem; margin: 0; font-weight: 500;">
+    <p style="color: #A9B9CC; font-size: 1.1rem; margin: 0; font-weight: 500;">
         Seu centro integrado de estudos, disciplinas acadêmicas e controle de tarefas em tempo real.
     </p>
 </div>
@@ -87,10 +87,10 @@ if "Dashboard" in menu_option:
             st.page_link("pages/3_👤_Perfil.py", label="👤 Detalhes da Conta", icon="👤", use_container_width=True)
 
     else:
-        # Not logged in: Harmonious Welcome Hero
+        # Not logged in: welcome hero
         st.markdown("""
-        <div style="background: linear-gradient(145deg, rgba(22, 22, 32, 0.85) 0%, rgba(14, 14, 20, 0.9) 100%); border: 1.5px solid rgba(245, 158, 11, 0.35); border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 0 25px rgba(245, 158, 11, 0.15);">
-            <h3 style="color: #FEF08A; margin-top: 0; font-size: 1.5rem; font-weight: 800;">
+        <div style="background: linear-gradient(145deg, #14243A 0%, #101B2D 100%); border: 1px solid rgba(103, 211, 197, 0.28); border-radius: 16px; padding: 24px; margin-bottom: 24px; box-shadow: 0 12px 32px rgba(2, 8, 23, 0.28);">
+            <h3 style="color: #A7F3E9; margin-top: 0; font-size: 1.5rem; font-weight: 750;">
                 ✨ Bem-vindo ao EduTrack AI!
             </h3>
             <p style="color: #CBD5E1; font-size: 1.05rem; line-height: 1.6;">

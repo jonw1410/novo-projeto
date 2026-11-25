@@ -55,11 +55,19 @@ def api_get_tasks(token: str) -> List[Dict[str, Any]]:
     return data if isinstance(data, list) else []
 
 
-def api_create_task(token: str, title: str, subject_id: int, due_date: str, status: str = "Pendente") -> Dict[str, Any]:
+def api_create_task(
+    token: str,
+    title: str,
+    description: str,
+    subject_id: int,
+    due_date: str,
+    status: str = "Pendente",
+) -> Dict[str, Any]:
     """Create a new academic task in Xano."""
     headers = {"Authorization": f"Bearer {token}"}
     payload = {
         "title": title.strip(),
+        "description": description.strip(),
         "subject_id": subject_id,
         "due_date": due_date,
         "status": status,
@@ -195,6 +203,7 @@ with tab_list:
         for task in filtered_tasks:
             t_id = task.get("id")
             t_title = task.get("title") or "Sem título"
+            t_description = task.get("description") or "Sem descrição"
             t_status = task.get("status") or "Pendente"
             t_due = task.get("due_date") or "Sem prazo"
             t_subj_name = subject_map.get(task.get("subject_id"), "Sem disciplina")
@@ -208,6 +217,7 @@ with tab_list:
 
                 with c_details:
                     st.write(f"**Disciplina:** {t_subj_name}")
+                    st.write(f"**Descrição:** {t_description}")
                     st.write(f"**Prazo de Entrega:** {t_due}")
                     st.write(f"**Status Atual:** `{t_status}`")
                     st.write(f"**ID no Xano:** `{t_id}`")
@@ -245,6 +255,7 @@ with tab_new:
     else:
         with st.form("form_create_task", clear_on_submit=True):
             f_title = st.text_input("Título da Tarefa *", placeholder="Ex: Exercícios do Capítulo 3 de Álgebra")
+            f_description = st.text_area("Descrição *", placeholder="Descreva os detalhes desta tarefa.")
             
             subject_choices = {s.get("name"): s.get("id") for s in subjects_data}
             f_subject_name = st.selectbox("Disciplina Associada *", list(subject_choices.keys()))
@@ -257,6 +268,8 @@ with tab_new:
             if submitted_task:
                 if not f_title.strip():
                     st.warning("Por favor, preencha o título da tarefa.")
+                elif not f_description.strip():
+                    st.warning("Por favor, preencha a descrição da tarefa.")
                 else:
                     selected_subj_id = subject_choices[f_subject_name]
                     due_date_str = f_due_date.strftime("%Y-%m-%d")
@@ -265,6 +278,7 @@ with tab_new:
                             api_create_task(
                                 token=user_token,
                                 title=f_title,
+                                description=f_description,
                                 subject_id=selected_subj_id,
                                 due_date=due_date_str,
                                 status=f_status,
